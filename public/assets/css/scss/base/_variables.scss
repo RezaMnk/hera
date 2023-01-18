@@ -1,0 +1,40 @@
+// Colors
+
+$primary-color: #ee1d23;
+$text-color: #051922;
+$text-color-light: #999999;
+$white-color: #fff;
+$black-color: #000;
+
+$primary:       $primary-color;
+$secondary:     $text-color;
+$success:       #198754FF;
+$info:          #0DCAF0FF;
+$warning:       #FFC107FF;
+$danger:        #DC3545FF;
+$light:         #F8F9FAFF;
+$dark:          $text-color;
+
+// Fonts
+@font-face {
+    font-family: 'Kalameh';
+    src: url(../fonts/KALAMEH_REGURAL.TTF) format('truetype');
+}
+
+@font-face {
+    font-family: 'Kalameh Bold';
+    src: url(../fonts/KALAMEH_BOLD.TTF) format('truetype');
+}
+
+$opensans-font: 'Kalameh Bold', sans-serif;
+$poppins-font: 'Kalameh Bold', sans-serif;
+
+// Maximum widths
+
+$max-width-s: 576px;
+$max-width-m: 992px;
+$max-width-l: 1200px;
+
+// Spacing betwenn elements
+
+$space: 1.25rem;
