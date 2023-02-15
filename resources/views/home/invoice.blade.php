@@ -25,12 +25,22 @@
                 </div>
                 <hr class="my-4">
                 <div class="row">
-                    <hr class="col-12 d-md-none">
                     <div class="col-12 col-md-6">
                         <p class="text-center text-md-left">
-                            <b>صورتحساب به</b>
+                            <b>کاربر</b>
+                        </p>
+                        <p class="text-center text-md-left mb-1">
+                            <b>نام: </b> {{ $order->user->name }}
                         </p>
                         <p class="text-center text-md-left">
+                            <b>شماره تماس: </b> {{ $order->user->phone }}
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <p class="text-center text-md-right">
+                            <b>صورتحساب به</b>
+                        </p>
+                        <p class="text-center text-md-right">
                             استان تهران <br>
                             شهر تهران <br>
                             آدرس: {{ $order->map->address() }}
@@ -48,18 +58,7 @@
                             </div>
                             <div class="col-7">
                                 <h5>{{ $product->name }}</h5>
-                                <div class="row ml-0">
-                                    @if($product->pivot->variable)
-                                        @foreach(explode(',', $product->pivot->variable) as $attribute_id)
-                                            @php($attribute = \App\Models\Attribute::find($attribute_id))
-                                            <p class="m-0 font-size-14 col-12">
-                                                <span class="font-weight-bold">{{ $attribute->parent->name }}:</span> {{ $attribute->name }}
-                                            </p>
-                                        @endforeach
-                                    @else
-                                        -
-                                    @endif
-                                </div>
+                                 <p>{{ number_format($product->price) }} × {{ $product->pivot->quantity }} = {{ number_format($product->price * $product->pivot->quantity) }} تومان</p>
                             </div>
                         </div>
                         <hr>

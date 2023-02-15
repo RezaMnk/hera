@@ -22,9 +22,30 @@ class DatabaseSeeder extends Seeder
              'admin' => 1,
          ]);
 
-         \App\Models\Category::create([
-             'name' => 'بدون دسته بندی',
-             'image' => 'default.png'
-         ]);
+        $settings = [
+            'shipping_price' => [
+                'name' => 'هزینه ارسال',
+                'value' => '15000',
+            ],
+            'sms_verify' => [
+                'name' => 'پنل پیامکی - شناسه تایید 2 مرحله ای',
+                'value' => 'verify',
+            ],
+            'sms_order_submit' => [
+                'name' => 'پنل پیامکی - شناسه ثبت سفارش',
+                'value' => 'new-order',
+            ],
+        ];
+
+        foreach ($settings as $id => $setting)
+            \App\Models\Setting::create([
+                'id' => $id,
+                'name' => $setting['name'],
+                'value' => $setting['value']
+            ]);
+
+        $this->call([
+            ProductSeeder::class,
+        ]);
     }
 }

@@ -1,23 +1,22 @@
-@extends('layouts.app')
+@extends('home.layouts.app')
+
+@section('title', 'تعیین کلمه عبور')
+
+@section('breadcrumb')
+    <x-breadcrumb title="تعیین کلمه عبور" desc="کلمه عبور خود را تعیین کنید" />
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
-
-                <div class="card-body">
-                    {{ __('Please confirm your password before continuing.') }}
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="auth-form">
                     <form method="POST" action="{{ route('password.confirm') }}">
                         @csrf
-
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <div class="col-12">
+                                <label for="password">کلمه عبور جدید</label>
+                                <input type="password" placeholder="کلمه عبور جدید" name="password" id="password" required @error('password') class="is-invalid" @enderror autocomplete="password" autofocus>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -26,24 +25,27 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-12 ">
+                                <label for="confirm-password">تکرار کلمه عبور جدید</label>
+                                <input type="password" placeholder="تکرار کلمه عبور جدید" name="password_confirmation" id="confirm-password" required @error('password_confirmation') class="is-invalid" @enderror autocomplete="new-password">
 
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Confirm Password') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="submit" value="تغییر کلمه عبور">
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
+            <div class="col-6 d-none d-lg-block login-image" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
         </div>
     </div>
-</div>
 @endsection

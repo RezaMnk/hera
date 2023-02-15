@@ -16,19 +16,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    @if(isset($category))
-                        <form action="{{ route('admin.categories.update', $category->id) }}" method="post" class="col-4" enctype="multipart/form-data">
-                            @method('PATCH')
-                    @else
-                        <form action="{{ route('admin.categories.store') }}" method="post" class="col-4" enctype="multipart/form-data">
-                    @endif
-                        @csrf
+                @if(isset($category))
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="post" class="col-12 col-lg-5" enctype="multipart/form-data">
+                        @method('PATCH')
+                @else
+                    <form action="{{ route('admin.categories.store') }}" method="post" class="col-12 col-lg-5" enctype="multipart/form-data">
+                @endif
+                    @csrf
 
                         <div class="row">
                             <div class="col-12">
                                 <h6 class="card-title">ایجاد / تغییر دسته بندی</h6>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label class="d-block">
                                         <input name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="نام دسته بندی" type="text" @if(isset($category)) value="{{ $category->name }}" @endif>
@@ -41,7 +41,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="custom-file mb-4">
                                     <input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" id="image" accept="image/*">
                                     <label class="custom-file-label" for="image">انتخاب فایل تصویر</label>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-7 offset-1 mt-5 table-responsive">
+                    <div class="col-12 col-lg-7 mt-5 table-responsive">
                         <table class="table table-striped table-bordered dtr-inline" role="grid" style="width: 100%;">
                             <thead>
                             <tr role="row">
@@ -100,7 +100,7 @@
                         </table>
                     </div>
                 </div>
-                {{ $categories->appends(['search' => request('search')])->links() }}
+                {{ $categories->withQueryString()->links('vendor.pagination.admin', ['search' => request('search')]) }}
             </div>
         </div>
     </div>

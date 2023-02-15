@@ -25,13 +25,14 @@
                                     <th>شماره سفارش</th>
                                     <th>نام</th>
                                     <th>شماره تلفن</th>
-                                    <th>آدرس</th>
-                                    <th>زمان ایجاد</th>
+                                    <th class="d-none d-md-table-cell">آدرس</th>
+                                    <th>وضعیت</th>
+                                    <th class="d-none d-md-table-cell">زمان ایجاد</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($orders as $k => $order)
+                            @forelse($orders as $k => $order)
                                 <tr role="row" class="{{ $loop->odd ? 'odd' : 'even' }}">
                                     <td>
                                         {{ $order->id }}
@@ -44,27 +45,44 @@
                                     <td class="ls-1">
                                         {{ $order->user->phone }}
                                     </td>
-                                    <td>
+                                    <td class="d-none d-md-table-cell">
                                         {{ $order->map->address() }}
                                     </td>
-                                    <td>
+                                    <td class="align-middle text-center">
+                                        @if($order->read)
+                                            <span class="d-none d-md-block bg-success text-center px-4 py-1 rounded">مشاهده شده</span>
+                                            <span class="d-inline-block d-md-none bg-success-bright px-2 rounded-pill">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                        @else
+                                            <span class="d-none d-md-block bg-danger text-center px-4 py-1 rounded">مشاهده نشده</span>
+                                            <span class="d-inline-block d-md-none bg-danger-bright px-2 rounded-pill">
+                                                <i class="fa fa-close"></i>
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="d-none d-md-table-cell">
                                         {{ $order->created_at() }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('order.invoice', $order->id) }}" class="btn btn-primary btn-floating">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-warning btn-floating">
-                                            <i class="fa fa-pencil"></i>
+                                        <a href="{{ route('order.invoice', $order->id) }}" class="btn btn-primary">
+                                            <i class="fa fa-eye mr-2"></i>
+                                            مشاهده
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr role="row">
+                                    <td colspan="7">
+                                        سفارشی یافت نشد!
+                                    </td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
-                {{ $orders->appends(['search' => request('search')])->links() }}
+                {{ $orders->withQueryString()->links('vendor.pagination.admin', ['search' => request('search')]) }}
             </div>
         </div>
     </div>

@@ -29,9 +29,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::query()->whereNot('id', 1);
+        $users = User::query();
 
-        $users = $this->search_filter($users)->latest()->paginate(20);
+        if ($keyword = request('search')) {
+            $users->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('phone', 'LIKE', "%$keyword%");
+        }
+
+        $users = $users->whereNot('id', 1)->latest()->paginate(20);
         return view('admin.users.index', compact('users'));
     }
 
@@ -97,21 +102,5 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->back()->with('toast.success', 'کاربر با موفیت حذف شد');
-    }
-
-
-    /**
-     * filter with search param
-     *
-     * @param $users
-     * @return mixed
-     */
-    public function search_filter($users)
-    {
-        if ($keyword = request('search')) {
-            $users->where('name', 'LIKE', "%$keyword%")->orWhere('phone', 'LIKE', "%$keyword%");
-        }
-
-        return $users;
     }
 }

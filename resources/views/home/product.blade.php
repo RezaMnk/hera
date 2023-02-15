@@ -11,13 +11,13 @@
     <div class="single-product mt-150 mb-150">
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-8 offset-2 col-md-5 offset-md-0">
                     <div class="single-product-img">
                         <img src="{{ $product->get_image() }}" alt="{{ $product->name }}">
                     </div>
                 </div>
-                <div class="col-md-7">
-                    <div class="single-product-content">
+                <div class="col-12 col-md-7">
+                    <div class="single-product-content text-center text-md-left">
                         <h3>
                             {{ $product->name }}
                         </h3>
@@ -37,8 +37,8 @@
                                 <form action="{{ route('cart.add', $product->id) }}" method="post">
                                     @csrf
                                     <input type="number" name="quantity" value="1" min="1">
-                                    <button type="submit" class="cart-btn icon-btn">
-                                        افزودن به سبد خرید
+                                    <button type="submit" class="product cart-btn icon-btn">
+                                        افزودن به سبد
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
                                 </form>
@@ -46,10 +46,9 @@
                         @endauth
                         <h4>اشتراک گذاری:</h4>
                         <ul class="product-share">
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="https://t.me/share/url?url={{ request()->url() }}" target="_blank"><i class="fab fa-telegram"></i></a></li>
+                            <li><a href="https://api.whatsapp.com/send?text={{ request()->url() }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                            <li><a href="mailto:?subject={{ env('app_name') }}&amp;body={{ request()->url() }}" target="_blank"><i class="fa fa-envelope"></i></a></li>
                         </ul>
                         @guest
                             <div class="mt-5">
@@ -72,7 +71,7 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center">
                     <div class="section-title">
-                        <h3><span class="orange-text">محصولات</span> مرتبط</h3>
+                        <h3><span class="red-text">محصولات</span> مرتبط</h3>
                     </div>
                 </div>
             </div>
@@ -89,10 +88,7 @@
                             <p class="product-price">
                                 {{ number_format($related_product->price) }} تومان
                             </p>
-                            <a href="#" class="cart-btn">
-                                افزودن به سبد خرید
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
+                            <x-add-to-cart :product="$product" />
                         </div>
                     </div>
                 @endforeach
@@ -100,6 +96,4 @@
         </div>
     </div>
     <!-- end more products -->
-
-    @include('home.layouts.partials.footer')
 @endsection

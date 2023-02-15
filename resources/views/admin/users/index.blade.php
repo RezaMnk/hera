@@ -30,7 +30,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $k => $user)
+                            @forelse($users as $k => $user)
                                 <tr role="row" class="{{ $loop->odd ? 'odd' : 'even' }}">
                                     <td>
                                         {{ $user->id }}
@@ -55,7 +55,13 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr role="row">
+                                    <td colspan="5">
+                                        کاربری یافت نشد!
+                                    </td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>

@@ -42,6 +42,10 @@
 
         @yield('content')
 
+        @unless(request()->routeIs('home.home'))
+            @include('home.layouts.partials.footer')
+        @endunless
+
         <!-- jquery -->
         <script src="{{ asset('assets/js/jquery-1.11.3.min.js') }}"></script>
         <!-- bootstrap -->
@@ -62,6 +66,9 @@
         <script src="{{ asset('assets/js/sticker.js') }}"></script>
         <!-- main js -->
         <script src="{{ asset('assets/js/main.js') }}"></script>
+        <!-- cart counter js -->
+        <script src="{{ asset('assets/js/cart-counter.js') }}"></script>
+
 
         <script>
             addEventListener('DOMContentLoaded', (event) => {
@@ -69,6 +76,7 @@
                 window.Toastify({
                     text: "{{ session('toast.success') }}",
                     position: "left",
+                    duration: 3000,
                     className: "toastify-success",
                     offset: {
                         x: '2rem',

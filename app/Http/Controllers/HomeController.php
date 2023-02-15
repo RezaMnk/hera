@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -36,13 +37,13 @@ class HomeController extends Controller
         if ($request->has('search'))
             $products->where('name', $request->search);
 
-        $products = $products->latest()->paginate(30);
+        $products = $products->get();
         $categories = Category::query()->whereNot('id', '1')->get();
         return view('home.menu', compact('products', 'categories'));
     }
 
     /**
-     * Show the home page.
+     * Show the product page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -50,6 +51,30 @@ class HomeController extends Controller
     {
         $related_products = Product::all();
         return view('home.product', compact('product', 'related_products'));
+    }
+
+    /**
+     * Show the menu page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function posts()
+    {
+        $posts = Post::query();
+
+        $posts = $posts->latest()->paginate(30);
+        return view('home.posts', compact('posts'));
+    }
+
+    /**
+     * Show the home page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function post(Post $post)
+    {
+        $recent_posts = Post::query()->whereNot('id', $post->id)->latest()->take(5)->get();
+        return view('home.post', compact('post', 'recent_posts'));
     }
 
     /**
@@ -65,12 +90,15 @@ class HomeController extends Controller
     /**
      * Show the checkout page.
      *
-     * @return Renderable
+     * @return Renderable|\Illuminate\Http\RedirectResponse
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
     public function checkout()
     {
+        if (cart()->all()->count() < 1)
+            return redirect()->route('home.cart')->with('toast.warning', 'سبد خرید شما خالی می باشد');
+
         if (session()->has('discount'))
         {
             session()->reflash();
@@ -82,7 +110,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the cart page.
+     * Show the profile page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -91,5 +119,35 @@ class HomeController extends Controller
         $user = auth()->user();
         $orders = $user->orders()->take(5)->get();
         return view('home.profile', compact('user', 'orders'));
+    }
+
+    /**
+     * Show the about page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function about()
+    {
+        return view('home.about');
+    }
+
+    /**
+     * Show the contact page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function contact()
+    {
+        return view('home.contact');
+    }
+
+    /**
+     * Show the company page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function company()
+    {
+        return view('home.company');
     }
 }

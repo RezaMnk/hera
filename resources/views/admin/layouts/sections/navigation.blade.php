@@ -3,33 +3,43 @@
     <div class="navigation-icon-menu">
         <ul>
             <li class="{{ request()->routeIs('admin.index') ? 'active' : '' }}" data-toggle="tooltip" title="داشبورد">
-                <a href="#navigationDashboards" title="داشبوردها">
+                <a href="#navigationDashboards">
                     <i class="icon ti-pie-chart"></i>
                 </a>
             </li>
             <li class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}" data-toggle="tooltip" title="کاربران">
-                <a href="#UserSubMenu" title="کاربران">
+                <a href="#UserSubMenu">
                     <i class="icon ti-user"></i>
                 </a>
             </li>
             <li class="{{ request()->routeIs('admin.orders*') ? 'active' : '' }}" data-toggle="tooltip" title="سفارش ها">
-                <a href="#OrdersSubMenu" title="سفارشات">
+                <a href="#OrdersSubMenu">
                     <i class="icon ti-layout-list-thumb"></i>
-                    @if(($count = \App\Models\Order::where('read', false)->count()) > 0)
-                        <span class="badge badge-warning">{{ $count }}</span>
-                    @endif
+                    <span id="new-order-badge" @class(['badge badge-warning', 'd-none' => \App\Models\Order::where('read', false)->count() == 0])>1</span>
                 </a>
             </li>
             <li class="{{ request()->routeIs('admin.products*') ? 'active' : '' }}" data-toggle="tooltip" title="محصولات">
-                <a href="#ProductsSubMenu" title="محصولات">
+                <a href="#ProductsSubMenu">
                     <i class="icon ti-bag"></i>
                 </a>
             </li>
+            <li class="{{ request()->routeIs('admin.posts*') ? 'active' : '' }}" data-toggle="tooltip" title="مقالات">
+                <a href="#PostsSubMenu">
+                    <i class="icon ti-pencil-alt"></i>
+                </a>
+            </li>
+            @owner
+                <li class="{{ request()->routeIs('admin.settings*') ? 'active' : '' }}" data-toggle="tooltip" title="تنظیمات">
+                    <a href="#SettingsSubMenu">
+                        <i class="icon ti-settings"></i>
+                    </a>
+                </li>
+            @endowner
         </ul>
         <!-- setting ul  -->
         <ul>
-            <li data-toggle="tooltip" title="بستن منو" onclick="fullscreen()">
-                <a href="#" class="go-to-page">
+            <li data-toggle="tooltip" title="بستن منو" onclick="fullscreen()" class="d-none d-lg-block">
+                <a href="javascript: void(0)" class="go-to-page">
                     <i id="fullscreen" class="icon ti-arrow-right"></i>
                 </a>
             </li>
@@ -183,6 +193,47 @@
             </li>
         </ul>
         <!-- Products -->
+        <!-- Products -->
+        <ul id="PostsSubMenu" class="{{ request()->routeIs('admin.posts*') ? 'navigation-active' : '' }}">
+            <li class="navigation-divider">مقالات</li>
+            <li>
+                <a class="{{ request()->routeIs('admin.posts.index') ? 'active' : '' }} mb-2" href="{{ route('admin.posts.index') }}">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <div class="icon-block bg-primary text-white mr-3">
+                                <i class="fa fa-pencil"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="font-size-13 line-height-22 primary-font m-b-5">مقالات</h6>
+                            <h4 class="m-b-0 primary-font font-weight-bold line-height-30">{{ \App\Models\Post::calc() }}</h4>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <!-- Products -->
+        @owner
+            <!-- Products -->
+            <ul id="SettingsSubMenu" class="{{ request()->routeIs('admin.settings*') ? 'navigation-active' : '' }}">
+                <li class="navigation-divider">تنظیمات</li>
+                <li>
+                    <a class="{{ request()->routeIs('admin.settings.index') ? 'active' : '' }} mb-2" href="{{ route('admin.settings.index') }}">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <div class="icon-block bg-info text-white mr-3">
+                                    <i class="fa fa-cog"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h6 class="font-size-13 line-height-22 info-font mb-0">تنظیمات</h6>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- Products -->
+        @endowner
     </div>
 </div>
 <!-- end::navigation -->

@@ -38,33 +38,33 @@
                             <div class="row">
                                 <div class="col-6">
                                     <a href="{{ route('admin.products.create') }}">
-                                        <div class="d-flex flex-column font-size-13 bg-danger-bright bg-hover pt-3 pb-3 border-radius-1 text-danger text-center mb-3">
+                                        <div class="d-flex flex-column font-size-13 bg-success-bright bg-hover pt-3 pb-3 border-radius-1 text-success text-center mb-3">
                                             <i class="fa fa-shopping-bag mb-2 font-size-20"></i>
                                             محصول جدید
                                         </div>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="{{ route('admin.users.create') }}">
-                                        <div class="d-flex flex-column font-size-13 bg-info-bright bg-hover pt-3 pb-3 border-radius-1 text-info text-center mb-3">
-                                            <i class="fa fa-user mb-2 font-size-20"></i>
-                                            کاربر جدید
+                                    <a href="{{ route('admin.discounts.index') }}">
+                                        <div class="d-flex flex-column font-size-13 bg-primary-bright bg-hover pt-3 pb-3 border-radius-1 text-primary text-center">
+                                            <i class="fa fa-tag mb-2 font-size-20"></i>
+                                            کد تخفیف جدید
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="{{ route('admin.posts.index') }}">
+                                        <div class="d-flex flex-column font-size-13 bg-danger-bright bg-hover pt-3 pb-3 border-radius-1 text-danger text-center">
+                                            <i class="fa fa-pencil mb-2 font-size-20"></i>
+                                            مقاله جدید
                                         </div>
                                     </a>
                                 </div>
                                 <div class="col-6">
                                     <a href="{{ route('admin.categories.index') }}">
-                                        <div class="d-flex flex-column font-size-13 bg-warning-bright bg-hover pt-3 pb-3 border-radius-1 text-warning text-center">
+                                        <div class="d-flex flex-column font-size-13 bg-info-bright bg-hover pt-3 pb-3 border-radius-1 text-info text-center">
                                             <i class="fa fa-th-list mb-2 font-size-20"></i>
                                             دسته بندی جدید
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-6">
-                                    <a href="{{ route('admin.categories.index') }}">
-                                        <div class="d-flex flex-column font-size-13 bg-secondary-bright bg-hover pt-3 pb-3 border-radius-1 text-secondary text-center">
-                                            <i class="fa fa-th-list mb-2 font-size-20"></i>
-                                            ویژگی جدید
                                         </div>
                                     </a>
                                 </div>

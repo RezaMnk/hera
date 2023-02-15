@@ -127,7 +127,7 @@
                         <label class="custom-file-label" for="product-image-input">انتخاب فایل تصویر</label>
                     </div>
                     <div class="mt-4">
-                        <img src="{{ $product->get_image() }}" id="product-image" class="w-100 shadow-sm rounded" alt="تصویر محصول">
+                        <img src="{{ $product->get_image() }}" id="product-image" class="w-100 shadow-sm rounded" alt="{{ $product->name }}">
                     </div>
 
                     @error('image')

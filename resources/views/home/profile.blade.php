@@ -8,10 +8,19 @@
 
 @section('content')
     <!-- check out section -->
-    <div class="profile-section mt-150 mb-150">
+    <div class="profile-section mt-100 mb-150">
         <div class="container">
+            @admin
+                <div class="row mb-5">
+                    <div class="col-12 col-md-8 col-lg-4 offset-md-2 offset-lg-4">
+                        <a href="{{ route('admin.index') }}" class="bordered-btn w-100 text-center">
+                            ورود به پنل مدیریت
+                        </a>
+                    </div>
+                </div>
+            @endadmin
             <div class="row mb-4 align-items-center">
-                <div class="col-4 user-name">
+                <div class="col-6 col-md-4 user-name">
                     <p>
                         نام
                     </p>
@@ -19,7 +28,7 @@
                         {{ $user->name }}
                     </span>
                 </div>
-                <div class="col-4 user-name">
+                <div class="col-6 col-md-4 user-name">
                     <p>
                         شماره تلفن
                     </p>
@@ -27,20 +36,34 @@
                         {{ $user->phone }}
                     </span>
                 </div>
-                <div class="col-4 text-right">
-                    <a class="boxed-btn btn-small" data-toggle="modal" data-target="#edit-profile">
-                        تغییر اطلاعات
-                    </a>
+                <div class="col-12 col-md-4">
+                    <div class="row">
+                        <div class="col-7">
+                            <a class="bordered-btn btn-small text-center w-100" data-toggle="modal" data-target="#edit-profile">
+                                تغییر اطلاعات
+                            </a>
+                        </div>
+                        <div class="col-5">
+                            <form action="{{ route('logout') }}" method="post" class="">
+                                @csrf
+                                <button type="submit" class="boxed-btn btn-small text-center w-100">
+                                    <i class="fa fa-turn-off"></i>
+                                    خروج
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="row mb-4 mt-100">
-                <div class="col-8 d-flex align-items-center">
+                <div class="col-6 d-flex align-items-center">
                     <h3>
                         آدرس های شما:
                     </h3>
                 </div>
                 @if($user->maps->count() < 5)
-                    <div class="col-4 text-right">
+                    <div class="col-6 text-right">
                         <a class="boxed-btn btn-small" data-toggle="modal" onclick="add_map_modal()" data-target="#add">
                             افزودن آدرس
                         </a>
@@ -84,16 +107,20 @@
                                     <hr>
                                 @endunless
                                 <div class="row mb-3">
-                                    <div class="col-2">
-                                        <p>
+                                    <div class="col-4 col-md-3 col-lg-2">
+                                        <p class="mb-0 mb-md-2">
                                             سفارش کد #{{ $order->id }}
                                         </p>
+                                        <p class="d-block d-md-none order-date">
+                                            <i class="fa fa-calendar"></i>
+                                            {{ $order->created_at() }}
+                                        </p>
                                     </div>
-                                    <div class="col-4 order-date">
+                                    <div class="col-4 d-none d-md-block order-date">
                                         <i class="fa fa-calendar"></i>
                                         {{ $order->created_at() }}
                                     </div>
-                                    <div class="col-6 order-total-price text-right">
+                                    <div class="col-8 col-md-5 col-lg-6 order-total-price text-right">
                                         {{ number_format($order->total_price) }}
                                         <span>
                                             تومان
@@ -101,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="row pb-1">
-                                    <div class="col-4">
+                                    <div class="col-7">
                                         @foreach($order->products as $product)
                                             @if($loop->iteration < 4)
                                                 <a href="{{ route('home.product', $product->slug) }}" class="order-product-image">
@@ -114,7 +141,7 @@
                                             @endif
                                         @endforeach
                                     </div>
-                                    <div class="col-8 text-right">
+                                    <div class="col-5 text-right">
                                         <a href="{{ route('order.invoice', $order->id) }}" class="bordered-btn btn-small">
                                             مشاهده فاکتور
                                         </a>
@@ -361,8 +388,6 @@
             </div>
         </div>
     @endif
-
-    @include('home.layouts.partials.footer')
 @endsection
 
 @section('styles')

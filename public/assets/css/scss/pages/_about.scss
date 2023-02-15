@@ -9,7 +9,7 @@
 	&:after {
 		background-image: url(../img/feature-bg.jpg);
 		position: absolute;
-		right: 0;
+		left: 0;
 		top: 0;
 		width: 40%;
 		height: 100%;
@@ -74,6 +74,7 @@ ul.social-link-team {
   padding: 0;
   list-style: none;
   text-align: center;
+  font-size: 14px;
 
   li {
     display: inline-block;

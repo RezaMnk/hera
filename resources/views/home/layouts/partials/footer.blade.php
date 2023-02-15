@@ -17,7 +17,7 @@
                             سعادت آباد، نبش بنفشه، رستوران قریشی</li>
                         <li>
                             ایمیل:
-                            support@ghoreyshi.com</li>
+                            support@ghoreishicatering.com</li>
                         <li>
                             تلفن:
                             <a href="tel:02166479876">
@@ -31,11 +31,12 @@
                 <div class="footer-box pages">
                     <h2 class="widget-title">دسترسی سریع</h2>
                     <ul>
-                        <li><a href="index.html">خانه</a></li>
-                        <li><a href="services.html">منو</a></li>
-                        <li><a href="about.html">درباره ما</a></li>
-                        <li><a href="news.html">اخبار</a></li>
-                        <li><a href="contact.html">ارتباط با ما</a></li>
+                        <li><a href="{{ route('home.home') }}">صفحه اصلی</a></li>
+                        <li><a href="{{ route('home.menu') }}">سفارش آنلاین</a></li>
+                        <li><a href="{{ route('home.company') }}">غذای شرکتی</a></li>
+                        <li><a href="{{ route('home.posts') }}">وبلاگ</a></li>
+                        <li><a href="{{ route('home.about') }}">درباره ما</a></li>
+                        <li><a href="{{ route('home.contact') }}">تماس با ما</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,3 +68,7 @@
     </div>
 </div>
 <!-- end copyright -->
+
+<!-- mobile space -->
+<div class="mobile-space d-block d-lg-none"></div>
+<!-- end mobile space -->

@@ -53,5 +53,26 @@ Route::prefix('discounts')->name('discounts.')->controller('DiscountController')
 
 Route::resource('discounts', 'DiscountController')->except(['create', 'destroy', 'show']);
 
+/*
+ * Orders routes
+ */
+Route::resource('orders', 'OrderController')->except(['edit', 'show', 'destroy', 'update']);
 
-Route::resource('orders', 'OrderController')->except(['edit']);
+/*
+ * Orders routes
+ */
+Route::prefix('posts')->name('posts.')->controller('PostController')->group(function () {
+    Route::post('/destroy', 'destroy')->name('destroy');
+});
+
+Route::resource('posts', 'PostController')->except(['show', 'destroy']);
+
+/*
+ * Settings routes
+ */
+Route::middleware('auth.owner')->prefix('settings')->name('settings.')->controller('SettingController')->group(function () {
+    Route::get('/index', 'index')->name('index');
+    Route::post('/update', 'update')->name('update');
+});
+
+//Route::resource('settings', 'SettingController')->except(['show', 'destroy']);

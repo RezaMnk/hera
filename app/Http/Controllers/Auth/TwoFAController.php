@@ -30,7 +30,7 @@ class TwoFAController extends Controller
         )
         {
             $code = $this->generate2FA();
-            $user->send_sms([$code]);
+            $user->send_sms([$code], setting('sms_verify'));
         }
 
         return view('auth.verify');
@@ -57,14 +57,22 @@ class TwoFAController extends Controller
         $status = TwoFA::verifyCode($request->code, $user);
 
         if ($status) {
+            if (session()->has('user.forgot_password'))
+            {
+                session()->reflash();
 
-            auth()->loginUsingId($user->id, session()->get('user.user_id'));
+                return redirect()->route('password.confirm');
+            }
+            else
+            {
+                auth()->loginUsingId($user->id, session()->get('user.user_id'));
 
-            $user->twoFA()->delete();
+                $user->twoFA()->delete();
 
-            $user->verify();
+                $user->verify();
 
-            return redirect()->route('home.home');
+                return redirect()->route('home.home');
+            }
         }
 
         $request->session()->reflash();
@@ -84,8 +92,7 @@ class TwoFAController extends Controller
     {
         $request->session()->reflash();
 
-        alert()->success('Success', '2FA Code resent.');
-        return redirect()->back();
+        return redirect()->back()->with('toast.success', 'کد مجددا ارسال شد');
     }
 
     /**

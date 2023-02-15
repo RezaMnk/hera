@@ -10911,6 +10911,7 @@ body.dark .nav a.nav-link:not(.active):active {
 
 	.header .header-logo a img {
 		display: none;
+        max-width: 100px;
 	}
 
 	.header .header-logo a img.small-logo {
@@ -11037,6 +11038,10 @@ body.dark .nav a.nav-link:not(.active):active {
 		margin: 30px auto;
 	}
 
+    .header .header-logo a img {
+        max-width: 80px;
+    }
+
 	.toast-top-right {
 		top: 1rem;
 		left: 1rem;
@@ -11137,7 +11142,7 @@ body.dark .nav a.nav-link:not(.active):active {
 	}
 
 	.header .header-logo a img {
-		max-width: 20px;
+		max-width: 65px;
 	}
 
 	.header .header-logo a img.small-logo {

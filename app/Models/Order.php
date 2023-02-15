@@ -21,6 +21,7 @@ class Order extends Model
         'map_id',
         'discount_id',
         'discount',
+        'discount_value',
         'total_price',
         'read',
     ];

@@ -9,10 +9,17 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-lg-6 position-relative">
+                <div class="captcha-loading d-none">
+                    <div class="loading">
+                        <div class="spinner-border text-primary" role="status"></div>
+                    </div>
+                </div>
                 <div class="auth-form">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" onsubmit="event.preventDefault(); submit_form(this)">
                         @csrf
+                        <x-recaptcha></x-recaptcha>
+
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="phone">شماره تلفن همراه</label>
@@ -50,7 +57,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <input type="submit" value="ورود">
-                                <a href="#" class="forgot-password">فراموشی کلمه عبور</a>
+                                <a href="{{ route('password.request') }}" class="forgot-password">فراموشی کلمه عبور</a>
                             </div>
                             <div class="col-4 text-right">
                                 <a href="{{ route('register') }}" class="register">ثبت نام</a>
@@ -59,9 +66,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-6 login-image" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
+            <div class="col-6 d-none d-lg-block login-image" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
         </div>
     </div>
-
-    @include('home.layouts.partials.footer')
 @endsection

@@ -41,7 +41,3 @@
         </div>
     </div>
 </div>
-
-@push('scripts')
-<script src="{{ asset('assets/js/cart-counter.js') }}"></script>
-@endpush

@@ -17,7 +17,7 @@
                                     <h1>استفاده از مواد اولیه مرغوب</h1>
                                     <div class="hero-btns">
                                         <a href="{{ route('home.menu') }}" class="boxed-btn">سفارش آنلاین</a>
-                                        <a href="#" class="bordered-btn">تماس با ما</a>
+                                        <a href="{{ route('home.contact') }}" class="bordered-btn">تماس با ما</a>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                     <h1>استفاده از مواد اولیه مرغوب</h1>
                                     <div class="hero-btns">
                                         <a href="{{ route('home.menu') }}" class="boxed-btn">سفارش آنلاین</a>
-                                        <a href="#" class="bordered-btn">تماس با ما</a>
+                                        <a href="{{ route('home.contact') }}" class="bordered-btn">تماس با ما</a>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                     <h1>استفاده از مواد اولیه مرغوب</h1>
                                     <div class="hero-btns">
                                         <a href="{{ route('home.menu') }}" class="boxed-btn">سفارش آنلاین</a>
-                                        <a href="#" class="bordered-btn">تماس با ما</a>
+                                        <a href="{{ route('home.contact') }}" class="bordered-btn">تماس با ما</a>
                                     </div>
                                 </div>
                             </div>
@@ -70,6 +70,4 @@
         </div>
     </div>
     <!-- end home page slider -->
-
-{{--    @include('home.layouts.partials.footer')--}}
 @endsection

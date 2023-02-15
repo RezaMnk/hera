@@ -44,8 +44,6 @@
             <div class="col-6 login-image" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
         </div>
     </div>
-
-    @include('home.layouts.partials.footer')
 @endsection
 
 @push('scripts')

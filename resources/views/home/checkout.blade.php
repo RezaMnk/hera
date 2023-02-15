@@ -64,7 +64,41 @@
                         خلاصه سفارش:
                     </h3>
                 </div>
-                <div class="col-8">
+                <div class="col-12 d-block d-md-none">
+                    @forelse(cart()->all() as $cart_item)
+                        <div class="cart-item-mobile row mt-4">
+                            <div class="col-2 mobile-product-image">
+                                <a href="{{ route('home.product', $cart_item['product']->slug) }}">
+                                    <img src="{{ $cart_item['product']->get_image() }}" alt="{{ $cart_item['product']->name }}">
+                                </a>
+                            </div>
+                            <div class="col-4 mobile-product-name">
+                                <a href="{{ route('home.product', $cart_item['product']->slug) }}">
+                                    {{ $cart_item['product']->name }}
+                                </a>
+                                <span>{{ number_format($cart_item['product']->price) }} تومان</span>
+                            </div>
+                            <div class="col-2">
+                                <div class="checkout-quantity">
+                                    تعداد: {{ $cart_item['quantity'] }}
+                                </div>
+                            </div>
+                            <div class="col-4 text-right">
+                                <div class="checkout-total">
+                                    جمع: {{ number_format($cart_item['product']->price * $cart_item['quantity']) }} تومان
+                                </div>
+                            </div>
+                        </div>
+                        @unless($loop->last)
+                            <hr>
+                        @endunless
+                    @empty
+                        <p class="ml-5">
+                            سبد خرید خالی می باشد!
+                        </p>
+                    @endforelse
+                </div>
+                <div class="col-12 col-lg-8 d-none d-md-block">
                     <div class="cart-table-wrap mt-3">
                         <table class="cart-table">
                             <thead class="cart-table-head">
@@ -114,7 +148,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-lg-4">
                     <div class="total-section">
                         <table class="total-table">
                             <tbody>
@@ -130,8 +164,8 @@
                                 <td>
                                     <strong>هزینه ارسال: </strong>
                                 </td>
-                                <td data-shipping-price="{{ 28000 }}">
-                                    {{ number_format(28000) }} تومان
+                                <td data-shipping-price="{{ setting('shipping_price') }}">
+                                    {{ number_format(setting('shipping_price')) }} تومان
                                 </td>
                             </tr>
                             @isset($discount)
@@ -158,7 +192,7 @@
                                     <strong>هزینه نهایی: </strong>
                                 </td>
                                 <td id="total-cart-price">
-                                    {{ number_format($total + 28000) }} تومان
+                                    {{ number_format($total + setting('shipping_price')) }} تومان
                                 </td>
                             </tr>
                             </tbody>
@@ -193,7 +227,7 @@
                         <input type="hidden" name="long" id="update-long">
                         <input type="hidden" name="id" id="update-id">
 
-                        <div class="col-6 mb-3">
+                        <div class="col-12 col-md-6 mb-3">
                             <label for="update-main_street">
                                 خیابان اصلی
                                 <span class="text-danger">*</span>
@@ -206,7 +240,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-12 col-md-6 mb-3">
                             <label for="update-side_street">خیابان فرعی</label>
                             <input type="text" placeholder="خیابان فرعی" name="side_street" id="update-side_street" class="address-data @error('side_street') is-invalid @enderror">
 
@@ -216,7 +250,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-12 col-md-6 mb-3">
                             <label for="update-alley">کوچه</label>
                             <input type="text" placeholder="کوچه" name="alley" id="update-alley" class="address-data @error('alley') is-invalid @enderror">
 
@@ -226,7 +260,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-12 col-md-6 mb-3">
                             <label for="update-house_no">
                                 پلاک
                                 <span class="text-danger">*</span>
@@ -289,7 +323,7 @@
                             <input type="hidden" name="lat" id="add-lat">
                             <input type="hidden" name="long" id="add-long">
 
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <label for="add-main_street">
                                     خیابان اصلی
                                     <span class="text-danger">*</span>
@@ -302,7 +336,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <label for="add-side_street">خیابان فرعی</label>
                                 <input type="text" placeholder="خیابان فرعی" name="side_street" id="add-side_street" class="address-data @error('side_street') is-invalid @enderror">
 
@@ -312,7 +346,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <label for="add-alley">کوچه</label>
                                 <input type="text" placeholder="کوچه" name="alley" id="add-alley" class="address-data @error('alley') is-invalid @enderror">
 
@@ -322,7 +356,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-6 mb-3">
+                            <div class="col-12 col-md-6 mb-3">
                                 <label for="add-house_no">
                                     پلاک
                                     <span class="text-danger">*</span>
@@ -369,8 +403,6 @@
             </div>
         </div>
     @endif
-
-    @include('home.layouts.partials.footer')
 @endsection
 
 @section('styles')

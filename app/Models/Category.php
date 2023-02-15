@@ -38,6 +38,35 @@ class Category extends Model
         ];
     }
 
+    /**
+     * declare columns to except for statistics
+     *
+     * @param $rules
+     * @return array
+     */
+    protected function statistics_exceptions($rules)
+    {
+        return [
+            'id' => 1,
+        ];
+    }
+
+
+    /**
+     * declare rules for calculation method
+     *
+     * @param $rules
+     * @return array
+     */
+    protected function calc_static_rules()
+    {
+        return [
+            'exceptions' => [
+                'id' => 1
+            ],
+        ];
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -13,7 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+ * Auth (Login - Register) routes
+ */
 Auth::routes();
+Route::controller(App\Http\Controllers\Auth\ForgotPasswordController::class)->prefix('password')->name('password.')->group(function () {
+    Route::post('phone', 'sendResetCodePhone')->name('phone');
+});
+Route::controller(App\Http\Controllers\Auth\ConfirmPasswordController::class)->prefix('password')->name('password.')->group(function () {
+    Route::post('confirm', 'confirm')->name('confirm');
+});
+
 
 Route::controller(App\Http\Controllers\Auth\TwoFAController::class)->prefix('2fa')->name('2fa.')->group(function () {
     Route::get('/', 'index')->name('index');
@@ -21,10 +31,18 @@ Route::controller(App\Http\Controllers\Auth\TwoFAController::class)->prefix('2fa
     Route::get('/resend', 'resend')->name('resend');
 });
 
+/*
+ * Routes of main pages
+ */
 Route::controller(App\Http\Controllers\HomeController::class)->name('home.')->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/menu', 'menu')->name('menu');
     Route::get('/product/{product:slug}', 'product')->name('product');
+    Route::get('/posts', 'posts')->name('posts');
+    Route::get('/post/{post:slug}', 'post')->name('post');
+    Route::get('/about-us', 'about')->name('about');
+    Route::get('/contact-us', 'contact')->name('contact');
+    Route::get('/company-food', 'company')->name('company');
 
     Route::middleware('auth')->group(function () {
         Route::get('/cart', 'cart')->name('cart');
@@ -33,26 +51,39 @@ Route::controller(App\Http\Controllers\HomeController::class)->name('home.')->gr
     });
 });
 
+/*
+ * Routes of cart actions
+ */
 Route::controller(App\Http\Controllers\CartController::class)->prefix('cart')->name('cart.')->group(function () {
     Route::post('add/{product}', 'add')->name('add');
     Route::post('remove/{product}', 'remove')->name('remove');
     Route::post('clear', 'clear')->name('clear');
 });
 
+/*
+ * Routes of order actions and invoice view
+ */
 Route::controller(App\Http\Controllers\OrderController::class)->prefix('order')->name('order.')->group(function () {
     Route::post('store', 'store')->name('store');
     Route::post('checkout', 'checkout')->name('checkout');
     Route::get('invoice/{order}', 'invoice')->name('invoice');
 });
 
+/*
+ * Routes of map actions
+ */
 Route::middleware('auth')->controller(App\Http\Controllers\MapController::class)->prefix('map')->name('map.')->group(function () {
     Route::post('/update/{user}', 'update')->name('update');
     Route::post('/store/{user}', 'store')->name('store');
 });
 
+/*
+ * Routes of profile actions
+ */
 Route::middleware('auth')->controller(App\Http\Controllers\ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
     Route::post('/update', 'update')->name('update');
 });
+
 
 /*
  * --------------------------------- Api section ---------------------------------
@@ -73,11 +104,6 @@ Route::middleware('auth')->controller(App\Http\Controllers\ApiController::class)
  * For Test Only --------------------------------------------------
  */
 
-Route::get('/map', function () {
-    return view('home.map');
-});
-
-
 Route::get('/fake_it', function () {
     $product = \App\Models\Product::create([
         'name' => 'چلو کباب لقمه ۲۰۰ گرم',
@@ -91,14 +117,15 @@ Route::get('/fake_it', function () {
 
 
 Route::get('/test', function () {
-    \App\Models\Product::query();
+    $created_categories = [];
 
-//    \App\Models\Discount::find(1)->delete();
-});
+    $category = \App\Models\Category::create([
+        'name' => 'salam',
+        'image' => 'sala'
+    ]);
+    $created_categories[] = [$category => $category->id];
 
-
-Route::get('/ss', function () {
-    dd(session()->all());
+    dd($category->id);
 });
 
 

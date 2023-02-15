@@ -3,8 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class ConfirmPasswordController extends Controller
 {
@@ -35,6 +42,38 @@ class ConfirmPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
+    }
+
+    /**
+     * Display the password confirmation view.
+     *
+     * @return Application|Factory|View|RedirectResponse|Redirector
+     */
+    public function showConfirmForm()
+    {
+        session()->reflash();
+
+        if (! session()->has('user.forgot_password'))
+            return redirect('login');
+
+        return view('auth.passwords.confirm');
+    }
+
+    public function confirm(Request $request)
+    {
+        $request->validate([
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = User::findOrFail(session()->get('user.user_id'));
+
+        $user->update([
+            'password' => $request->password
+        ]);
+
+        auth()->loginUsingId($user->id, session()->get('user.user_id'));
+
+        return redirect()->route('home.home')->with('toast.success', 'کلمه عبور با موفقیت تغییر یافت');
     }
 }

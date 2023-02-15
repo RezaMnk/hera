@@ -18,6 +18,7 @@ a {
     &:hover {
       background-color: $text-color;
       color: $white-color;
+      border: 2px solid $text-color;
     }
   }
 
@@ -37,6 +38,7 @@ button {
     &:hover {
       background-color: $text-color;
       color: $white-color;
+      border: 2px solid $text-color;
     }
   }
 
@@ -77,11 +79,11 @@ a.video-play-btn {
   }
 }
 
-.latest-news-bg {
+.latest-posts-bg {
   transition: 0.3s;
 }
 
-.single-latest-news:hover .latest-news-bg {
+.single-latest-posts:hover .latest-posts-bg {
   opacity: 0.8;
 }
 
@@ -101,7 +103,7 @@ a.tof-btn {
   transition: 0.3s;
 }
 
-.single-latest-news {
+.single-latest-posts {
   &:hover {
     box-shadow: 0 0 0;
     box-shadow: none;

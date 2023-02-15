@@ -12,7 +12,7 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12 col-lg-8 offset-lg-2">
                     <div class="product-filters">
                         <ul>
                             <li data-filter="*" class="active">
@@ -31,24 +31,29 @@
             </div>
 
             <div class="row">
-                <div @class(['col-8' => auth()->check(), 'col-12' => ! auth()->check()])>
+                <div @class(['col-12 col-lg-8' => auth()->check(), 'col-12' => ! auth()->check()])>
                     <div class="row product-lists">
                         @forelse($products as $product)
-                            <div class="col-lg-4 col-md-6 text-center category-{{ $product->category->id }}">
-                                <div class="single-product-item">
+                            <div class="col-6 col-lg-4 text-center category-{{ $product->category->id }}">
+                                <div class="single-product-item position-relative">
                                     <a href="{{ route('home.product', $product->slug) }}">
                                         <div class="product-image">
                                             <img src="{{ $product->get_image() }}" alt="{{ $product->name }}">
                                         </div>
                                         <h3>{{ $product->name }}</h3>
                                     </a>
-                                    <span>
-                                {{ $product->description }}
-                            </span>
+                                    @unless(is_null($product->description))
+                                        <span>
+                                            @if(strlen($product->description) > 50)
+                                                {{ Str::limit($product->description, 50) }}
+                                            @else
+                                                {{ $product->description }}
+                                            @endif
+                                        </span>
+                                    @endunless
                                     <p class="product-price">
                                         {{ number_format($product->price) }} تومان
                                     </p>
-                                    @php($product_id = $product->id)
                                     <x-add-to-cart :product="$product" />
                                 </div>
                             </div>
@@ -62,20 +67,18 @@
                     </div>
                 </div>
                 @auth
-                    <div class="col-4">
+                    <div class="col-4 d-none d-lg-block">
                         <x-sticky-cart></x-sticky-cart>
                     </div>
                 @endauth
             </div>
 
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    {{ $products->links() }}
-                </div>
-            </div>
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-12 text-center">--}}
+{{--                    {{ $products->links() }}--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
     <!-- end products -->
-
-    @include('home.layouts.partials.footer')
 @endsection

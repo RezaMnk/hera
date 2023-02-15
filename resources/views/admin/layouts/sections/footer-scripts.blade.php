@@ -26,6 +26,15 @@
 <script src="{{ asset('admin/js/examples/dashboard.js') }}"></script>
 
 <script>
+    toastr.options = {
+        timeOut: 10000,
+        progressBar: true,
+        showMethod: "slideDown",
+        hideMethod: "slideUp",
+        showDuration: 200,
+        hideDuration: 200
+    };
+
     @if(Session::has('toast.success'))
         toastr.success("{{ session('toast.success') }}");
 

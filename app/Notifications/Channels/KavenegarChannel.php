@@ -26,11 +26,8 @@ class KavenegarChannel
             /*
              * Send null for tokens not defined in the template
              */
-//            $result = Kavenegar::VerifyLookup($receptor, $tokens[0], $tokens[1] ?? null, $tokens[2] ?? null, $template, $type = null);
-//            if ($result)
-//            {
-//                //
-//            }
+            Kavenegar::VerifyLookup($receptor, $tokens[0], $tokens[1] ?? null, $tokens[2] ?? null, $template, $type = null);
+
         }
         catch(ApiException $e){
             // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد

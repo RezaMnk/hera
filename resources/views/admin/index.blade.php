@@ -10,7 +10,7 @@
                 <h6>آمار کلی وبسایت</h6>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="card border mb-0">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-md-6 col-sm-12 mt-2 mt-md-0">
                     <div class="card border mb-0">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
@@ -51,7 +51,7 @@
     </div>
 
     <div class="row">
-        <div class="col-xl-3 col-md-12">
+        <div class="col-12 col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-header">کل کاربران</div>
                 <div class="card-body text-center">
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-12">
+        <div class="col-12 col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-header">کل سفارشات</div>
                 <div class="card-body text-center">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-12">
+        <div class="col-12 col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-header">کل محصولات</div>
                 <div class="card-body text-center">
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-12">
+        <div class="col-12 col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-header">کل کدتخفیف ها</div>
                 <div class="card-body text-center">
@@ -113,8 +113,8 @@
         <div class="col-xl-6 col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    جدید ترین سفارشات
-                    <a href="#" class="btn btn-default p-0 font-size-11">
+                    جدیدترین سفارشات
+                    <a href="{{ route('admin.orders.index') }}" class="btn btn-default p-0 font-size-11">
                         مشاهده همه
                     </a>
                 </div>
@@ -141,7 +141,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     جدیدترین کاربران
-                    <a href="#" class="btn btn-default p-0 font-size-11">
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-default p-0 font-size-11">
                         مشاهده همه
                     </a>
                 </div>
@@ -155,6 +155,8 @@
                                 </div>
                                 @if($user->admin)
                                     <span class="badge badge-warning ml-auto">مدیر سایت</span>
+                                @else
+                                    <span class="badge badge-info ml-auto">مشتری</span>
                                 @endif
                             </li>
                         @endforeach

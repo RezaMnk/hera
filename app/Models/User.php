@@ -76,6 +76,8 @@ class User extends Authenticatable
             ],
         ];
     }
+
+
     /**
      * Relation connection with Two-Factor Auth
      *

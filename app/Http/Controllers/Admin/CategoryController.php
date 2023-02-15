@@ -21,7 +21,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::query()->latest()->paginate(20);
+        $categories = Category::query();
+
+        if ($keyword = request('search')) {
+            $categories->where('name', 'LIKE', "%$keyword%");
+        }
+
+        $categories = $categories->latest()->paginate(20);
         return view('admin.categories.index', compact('categories'));
     }
 

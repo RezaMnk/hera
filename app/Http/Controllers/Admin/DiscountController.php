@@ -21,7 +21,14 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        $discounts = Discount::query()->latest()->paginate(20);
+        $discounts = Discount::query();
+
+        if ($keyword = request('search')) {
+            $discounts->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('type', 'LIKE', "%$keyword%");
+        }
+
+        $discounts = $discounts->latest()->paginate(20);
         return view('admin.discounts.index', compact('discounts'));
     }
 

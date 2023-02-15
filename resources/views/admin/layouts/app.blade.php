@@ -44,6 +44,9 @@
 <!-- App scripts -->
 <script src="{{ asset('admin/js/app.js') }}"></script>
 <script src="{{ asset('admin/js/custom.js') }}"></script>
+
+@vite('resources/js/app.js')
+
 @yield('footer-assets')
 
 </body>

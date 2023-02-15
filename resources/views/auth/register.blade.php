@@ -9,10 +9,17 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-lg-6 position-relative">
+                <div class="captcha-loading d-none">
+                    <div class="loading">
+                        <div class="spinner-border text-primary" role="status"></div>
+                    </div>
+                </div>
                 <div class="auth-form">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" onsubmit="event.preventDefault(); submit_form(this)">
                         @csrf
+                        <x-recaptcha></x-recaptcha>
+
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="name">نام و نام خانوادگی</label>
@@ -38,7 +45,7 @@
                             </div>
                         </div>
                         <div class="row mb-5">
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <label for="phone">کلمه عبور</label>
                                 <input type="password" placeholder="کلمه عبور" name="password" id="password" required @error('password') class="is-invalid" @enderror autocomplete="new-password">
 
@@ -48,9 +55,9 @@
                                 </span>
                                 @enderror
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <label for="confirm-password">تکرار کلمه عبور</label>
-                                <input type="password" placeholder="تکرار کلمه عبور جدید" name="password_confirmation" id="confirm-password" required @error('password_confirmation') class="is-invalid" @enderror autocomplete="new-password">
+                                <input type="password" placeholder="تکرار کلمه عبور" name="password_confirmation" id="confirm-password" required @error('password_confirmation') class="is-invalid" @enderror autocomplete="new-password">
 
                                 @error('password_confirmation')
                                 <span class="invalid-feedback" role="alert">
@@ -60,17 +67,17 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <input type="submit" value="ثبت نام">
-                                <a href="#" class="login">ورود</a>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{{ route('login') }}" class="login">ورود</a>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-6 login-image" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
+            <div class="col-6 d-none d-lg-block" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
         </div>
     </div>
-
-    @include('home.layouts.partials.footer')
 @endsection

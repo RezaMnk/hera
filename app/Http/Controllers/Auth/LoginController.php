@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\Recaptcha;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -63,7 +64,7 @@ class LoginController extends Controller
         $request->validate([
             $this->username() => ['required', 'numeric', 'regex:/^09[0-9]{9}$/'],
             'password' => ['required', 'string'],
-//            'g-recaptcha-response' => ['required', new Recaptcha],
+            'recaptcha_token' => ['required', new Recaptcha],
         ]);
     }
 

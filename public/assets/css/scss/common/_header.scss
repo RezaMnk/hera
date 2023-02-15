@@ -242,7 +242,7 @@ ul.navbar-nav {
 }
 
 //Searchbar
-.search-area {
+.search-area, .mobile-menu-area, .mobile-cart-area {
   position: fixed;
   left: 0;
   top: 0;
@@ -261,7 +261,7 @@ span.close-btn {
   cursor: pointer;
 }
 
-.search-area {
+.search-area, .mobile-menu-area, .mobile-cart-area {
   height: 100%;
 
   div {
@@ -279,10 +279,112 @@ a.mobile-show {
   display: none;
 }
 
-.search-area .search-bar div.search-bar-tablecell {
+.search-area .search-bar div.search-bar-tablecell,
+.mobile-menu-area .menu-list div.menu-list-tablecell,
+.mobile-cart-area .cart-list div.cart-list-tablecell {
   display: table-cell;
   vertical-align: middle;
   height: auto;
+}
+
+.menu-list, .cart-list {
+    height: 100%;
+    display: table;
+    width: 100%;
+
+    &.menu-list {
+        hr {
+            border-top: 1px solid rgb(255 255 255 / .1);
+        }
+
+        h4 {
+            margin: 30px 0;
+            padding: 10px 0;
+            position: relative;
+
+            a, button {
+                color: $white-color;
+            }
+
+            &.active {
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    right: 25%;
+                    top: 12.5%;
+                    width: 2px;
+                    height: 75%;
+                    background-color: rgba($primary-color, .7);
+                }
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    left: 25%;
+                    top: 12.5%;
+                    width: 2px;
+                    height: 75%;
+                    background-color: rgba($primary-color, .7);
+                }
+
+                a {
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+
+    &.cart-list {
+        p.empty-cart {
+            color: $text-color-light;
+        }
+
+        hr {
+            border-top: 1px solid rgb(255 255 255 / .1);
+        }
+
+        .cart-item {
+            img {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            p, .cart-count {
+                color: $white-color;
+            }
+        }
+
+        .more-products {
+            color: $text-color-light;
+            font-size: 18px;
+        }
+
+        .cart-list-tablecell div {
+            height: unset;
+        }
+
+        .cart-actions {
+            margin-top: 3rem;
+
+            .clear-cart-button {
+                color: $white-color;
+                border-color: $white-color;
+
+                &:hover {
+                    background-color: $white-color;
+                    color: $primary-color;
+                }
+            }
+
+            .show-cart-page {
+                &:hover {
+                    background-color: rgba($primary-color, .3);
+                }
+            }
+        }
+    }
 }
 
 .search-bar-tablecell {
@@ -322,12 +424,12 @@ a.mobile-show {
   }
 }
 
-.search-area {
+.search-area, .mobile-menu-area, .mobile-cart-area {
   visibility: hidden;
   opacity: 0;
   transition: 0.3s;
 
-  &.search-active {
+  &.search-active, &.menu-active {
     visibility: visible;
     opacity: 1;
     z-index: 99999;
@@ -338,4 +440,56 @@ a.mobile-show {
   color: $white-color;
   margin-bottom: 30px;
   font-weight: 600;
+}
+
+.mobile-static-menu {
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: rgba($text-color, 0.7);
+    backdrop-filter: blur(10px);
+    transition: .2s;
+
+    &.fixed-menu {
+        width: calc(100% - 20px);
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    ul {
+        display: flex;
+        padding: 0;
+        margin: 5px;
+
+        li {
+            display: inline-block;
+            list-style-type: none;
+            flex: 25%;
+            text-align: center;
+            font-size: 14px;
+            padding: 5px;
+            position: relative;;
+
+            &:not(:first-child):before {
+                position: absolute;
+                content: '';
+                width: 2px;
+                height: 50%;
+                top: 25%;
+                right: -1px;
+                background-color: rgba($primary-color, 0.7);
+            }
+
+            a {
+                color: $white-color;
+
+                i {
+                    display: block;
+                    padding: 7px 0;
+                }
+            }
+        }
+    }
 }

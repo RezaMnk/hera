@@ -16,19 +16,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    @if(isset($discount))
-                        <form action="{{ route('admin.discounts.update', $discount->id) }}" method="post" class="col-4" enctype="multipart/form-data">
-                            @method('PATCH')
-                    @else
-                        <form action="{{ route('admin.discounts.store') }}" method="post" class="col-4" enctype="multipart/form-data">
-                    @endif
-                        @csrf
+                @if(isset($discount))
+                    <form action="{{ route('admin.discounts.update', $discount->id) }}" method="post" class="col-12 col-lg-5" enctype="multipart/form-data">
+                        @method('PATCH')
+                @else
+                    <form action="{{ route('admin.discounts.store') }}" method="post" class="col-12 col-lg-5" enctype="multipart/form-data">
+                @endif
+                    @csrf
 
                         <div class="row">
                             <div class="col-12">
                                 <h6 class="card-title">ایجاد / تغییر کد تخفیف</h6>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="name">نام کد</label>
                                     <input name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="نام کد تخفیف" type="text" @if(isset($discount)) value="{{ old('name') ?? $discount->name }}" @endif>
@@ -40,7 +40,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="mb-4">
                                     <label for="expire_at">تاریخ انقضا</label>
                                     <input type="text" name="expire_at" class="form-control text-left @error('expire_at') is-invalid @enderror" placeholder="تاریخ انقضا" dir="ltr" id="expire_at" @if(isset($discount)) value="{{ old('expire_at') ?? jdate($discount->expire_at)->format('Y/m/d') }}" @endif>
@@ -52,7 +52,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="type">نوع</label>
                                     <select class="custom-select @error('type') is-invalid @enderror" id="type" name="type">
@@ -67,7 +67,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="value">مقدار</label>
                                     <input name="value" id="value" class="form-control @error('value') is-invalid @enderror" placeholder="مقدار" type="text" @if(isset($discount)) value="{{ old('value') ?? $discount->value }}" @endif>
@@ -80,11 +80,11 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary btn-block">افزودن دسته جدید</button>
+                                <button type="submit" class="btn btn-primary btn-block">افزودن کد تخفیف</button>
                             </div>
                         </div>
                     </form>
-                    <div class="col-7 offset-1 mt-5 table-responsive">
+                    <div class="col-12 col-lg-7 mt-5 table-responsive">
                         <table class="table table-striped table-bordered dtr-inline" role="grid" style="width: 100%;">
                             <thead>
                             <tr role="row">
@@ -96,7 +96,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($discounts as $k => $discount)
+                            @forelse($discounts as $k => $discount)
                                 <tr role="row" class="{{ $loop->odd ? 'odd' : 'even' }}">
                                     <td>
                                         {{ $discount->name }}
@@ -126,12 +126,18 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr role="row">
+                                    <td colspan="5">
+                                        کد تخفیفی یافت نشد!
+                                    </td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
-                {{ $discounts->appends(['search' => request('search')])->links() }}
+                {{ $discounts->withQueryString()->links('vendor.pagination.admin', ['search' => request('search')]) }}
             </div>
         </div>
     </div>

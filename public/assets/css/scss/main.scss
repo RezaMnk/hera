@@ -22,7 +22,7 @@ Version: 1.0
 // Sections
 @import "sections/hero";
 @import "sections/list";
-@import "sections/news";
+@import "sections/posts";
 @import "sections/cart-banner";
 @import "sections/testimonials";
 @import "sections/about";
@@ -32,5 +32,6 @@ Version: 1.0
 // Pages
 @import "pages/about";
 @import "pages/auth";
+@import "pages/contact";
 @import "pages/shop";
 @import "pages/404";

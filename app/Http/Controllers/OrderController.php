@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewOrder;
 use App\Models\Discount;
 use App\Models\Order;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,6 +29,9 @@ class OrderController extends Controller
             'discount' => ['nullable', 'string', 'exists:discounts,name'],
         ]);
 
+        if (cart()->all()->count() == 0)
+            return redirect()->route('home.cart')->with('toast.danger', 'کد تخفیف منقضی شده است');
+
         $discount = null;
         $discount_value = null;
         if (! is_null($request->discount))
@@ -39,7 +43,7 @@ class OrderController extends Controller
         }
 
         $sync = [];
-        $total = 0;
+        $total = setting('shipping_price');
         foreach (cart()->all() as $cart_item)
         {
             $sync[$cart_item['product']->id] = ['quantity' => $cart_item['quantity']];
@@ -71,6 +75,11 @@ class OrderController extends Controller
 
         cart()->clear();
         session()->forget('discount');
+
+        event(new NewOrder($order));
+
+        if (setting('send_order_submit_sms') == 'true')
+            auth()->user()->send_sms([$order->id], setting('sms_order_submit'));
 
         return redirect()->route('order.invoice', $order->id)->with('toast.success', 'سفارش با موفقیت ثبت شد');
     }

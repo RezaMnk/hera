@@ -52,14 +52,14 @@
     justify-content: center;
     max-width: 720px;
     height: 70vh;
-    min-height: 500px;
+    min-height: 600px;
     margin: auto;
 
     input[type="submit"] {
         padding: 7px 30px;
     }
 
-    a.forgot-password, a.login {
+    a.forgot-password {
         margin-right: 20px;
         font-size: 16px;
 
@@ -68,7 +68,7 @@
         }
     }
 
-    a.register {
+    a.register, a.login {
         color: $primary-color;
         border: 2px solid $primary-color;
         padding: 7px 30px;
@@ -121,19 +121,6 @@
   margin: 0;
 }
 
-.find-location p {
-  color: $white-color;
-  font-size: 40px;
-  margin: 0;
-  font-weight: 600;
-  padding: 95px 0;
-
-  i {
-    margin-right: 10px;
-    color: $primary-color;
-  }
-}
-
 //Mail Status
 #form_status {
   span {
@@ -178,4 +165,21 @@
       margin-bottom: 10px;
     }
   }
+}
+
+.captcha-loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    .loading {
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+    }
 }

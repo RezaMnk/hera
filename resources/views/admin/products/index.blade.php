@@ -7,10 +7,10 @@
         <div class="card-body">
             <div>
                 <div class="row align-items-end">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-6">
                         <a class="btn btn-primary mb-2" href="{{ route('admin.products.create') }}">افزودن</a>
                     </div>
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-6">
                         <form class="d-flex justify-content-end">
 
                             <label for="search">جستجو:
@@ -32,7 +32,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($products as $k => $product)
+                            @forelse($products as $k => $product)
                                 <tr role="row" class="{{ $loop->odd ? 'odd' : 'even' }}">
                                     <td>
                                         {{ $product->id }}
@@ -65,12 +65,18 @@
                                         </button>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr role="row">
+                                    <td colspan="5">
+                                        محصولی یافت نشد!
+                                    </td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
-                {{ $products->appends(['search' => request('search')])->links() }}
+                {{ $products->withQueryString()->links('vendor.pagination.admin', ['search' => request('search')]) }}
             </div>
         </div>
     </div>
@@ -79,7 +85,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">حذف دسته بندی</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">حذف محصول</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i class="ti ti-close font-size-10"></i>
                     </button>

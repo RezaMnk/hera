@@ -20,3 +20,10 @@ if (!function_exists('cart')) {
         return new \App\Helpers\Cart\CartService;
     }
 }
+
+if (!function_exists('setting')) {
+    function setting($name)
+    {
+        return \App\Models\Setting::find($name)->value;
+    }
+}
