@@ -215,13 +215,13 @@
   position: relative;
   z-index: 1;
 }
-.owl-carousel.owl-loaded, .owl-carousel .owl-stage-outer {
+.carousel-products.owl-carousel.owl-loaded, .carousel-products.owl-carousel .owl-stage-outer {
     overflow: initial;
 }
-.owl-item {
+.carousel-products .owl-item {
     opacity: 0;
     transition: opacity .1s linear;
 }
-.owl-item.active {
+.carousel-products .owl-item.active {
     opacity: 1;
 }

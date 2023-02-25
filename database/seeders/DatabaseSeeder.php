@@ -35,6 +35,10 @@ class DatabaseSeeder extends Seeder
                 'name' => 'پنل پیامکی - شناسه ثبت سفارش',
                 'value' => 'new-order',
             ],
+            'send_order_submit_sms' => [
+                'name' => 'پنل پیامکی - ارسال تاییدیه ثبت سفارش',
+                'value' => 'true',
+            ],
         ];
 
         foreach ($settings as $id => $setting)

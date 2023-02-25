@@ -12,11 +12,11 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-12 col-lg-8 offset-lg-2">
+                <div class="col-12 col-lg-10 offset-lg-1">
                     <div class="product-filters">
-                        <ul>
+                        <ul class="filters-carousel">
                             <li data-filter="*" class="active">
-                                <img src="{{ asset('storage/categories/default.png') }}" alt="همه دسته بندی ها">
+                                <img src="{{ asset('storage/categories/all.png') }}" alt="همه دسته بندی ها">
                                 <p>همه دسته ها</p>
                             </li>
                             @foreach($categories as $category)

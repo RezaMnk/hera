@@ -20,7 +20,7 @@
       border: 2px #f6f6f6 solid;
 
       img {
-        height: 6rem;
+        height: 7rem;
         border-radius: 5px;
       }
 
@@ -609,5 +609,15 @@ table.order-details {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+    }
+}
+
+.filters-carousel {
+    .owl-prev {
+        right: -15px;
+    }
+
+    .owl-next {
+        left: -15px;
     }
 }

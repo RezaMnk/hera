@@ -8,7 +8,7 @@ Version: 1.0
 */
 @font-face {
   font-family: "Kalameh";
-  src: url(../fonts/KALAMEH_REGULAR.TTF) format("truetype");
+  src: url(../fonts/KALAMEH_REGURAL.TTF) format("truetype");
 }
 @font-face {
   font-family: "Kalameh Bold";
@@ -1590,13 +1590,13 @@ div.owl-controls, .owl-controls div {
 
 .owl-prev {
   position: absolute;
-  left: 60px;
+  right: 60px;
   margin-top: -30px;
 }
 
 .owl-next {
   position: absolute;
-  right: 60px;
+  left: 60px;
   margin-top: -30px;
 }
 
@@ -2374,8 +2374,9 @@ ul.social-link-team li a {
   opacity: 0.8;
 }
 
-.login-image {
-  background-size: cover;
+.welcome-image {
+  background-size: contain;
+  background-position: center center;
   background-repeat: no-repeat;
 }
 
@@ -2532,7 +2533,7 @@ ul.social-link-team li a {
   border: 2px #f6f6f6 solid;
 }
 .product-filters ul li img {
-  height: 6rem;
+  height: 7rem;
   border-radius: 5px;
 }
 .product-filters ul li p {
@@ -3041,6 +3042,13 @@ table.order-details tbody td {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.filters-carousel .owl-prev {
+  right: -15px;
+}
+.filters-carousel .owl-next {
+  left: -15px;
 }
 
 /* -----------------------------------------------------------------------------

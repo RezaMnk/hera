@@ -26,7 +26,7 @@ class KavenegarChannel
             /*
              * Send null for tokens not defined in the template
              */
-            Kavenegar::VerifyLookup($receptor, $tokens[0], $tokens[1] ?? null, $tokens[2] ?? null, $template, $type = null);
+//            Kavenegar::VerifyLookup($receptor, $tokens[0], $tokens[1] ?? null, $tokens[2] ?? null, $template, $type = null);
 
         }
         catch(ApiException $e){

@@ -26,10 +26,10 @@ class ProductSeeder extends Seeder
             'چلو کباب' => 'chlo-kabab.png',
             'کباب' => 'kabab.png',
             'کتلت - کوکو - کوفه' => 'kookoo.png',
-            'غذای سنتی' => 'default.png',
-            'خوراک مرغ و گوشت' => 'default.png',
-            'غذای دریایی' => 'daryayei-category.jpg',
-            'سالاد' => 'default.png',
+            'غذای سنتی' => 'sonati.png',
+            'خوراک مرغ و گوشت' => 'khurak.png',
+            'غذای دریایی' => 'daryayi.jpg',
+            'سالاد' => 'salad.png',
         ];
 
         $created_categories = [];

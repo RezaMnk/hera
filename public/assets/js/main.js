@@ -33,7 +33,7 @@
             nav: true,
             rtl: true,
             dots: false,
-            navText: ['<i class="fas fa-angle-left"></i>', '<i class="fas fa-angle-right"></i>'],
+            navText: ['<i class="fas fa-angle-right"></i>', '<i class="fas fa-angle-left"></i>'],
             responsive:{
                 0:{
                     items:1,
@@ -76,6 +76,26 @@
             }
         });
 
+        // filters carousel
+        $(".filters-carousel").owlCarousel({
+            items: 5,
+            nav: true,
+            rtl: true,
+            dots: false,
+            navText: ['<i class="fas fa-angle-right"></i>', '<i class="fas fa-angle-left"></i>'],
+            responsive:{
+                0:{
+                    items: 2,
+                },
+                600:{
+                    items: 4,
+                },
+                1000:{
+                    items: 5,
+                }
+            }
+        });
+
         // projects filters isotop
         $(".product-filters li").on('click', function () {
 
@@ -90,14 +110,6 @@
             });
 
         });
-
-        // isotop inner
-        setTimeout(function() {
-            $(".product-lists").isotope({
-                isOriginLeft: false
-            });
-        }, 100);
-
 
 
         // homepage slides animations
@@ -165,6 +177,14 @@
 
 
     jQuery(window).on("load",function(){
+
+        // isotop inner
+        setTimeout(function() {
+            $(".product-lists").isotope({
+                isOriginLeft: false
+            });
+        }, 100);
+
         jQuery(".loader").fadeOut(1000);
     });
 

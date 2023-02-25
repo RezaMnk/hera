@@ -1,9 +1,10 @@
 @extends('home.layouts.app')
 
-@section('title', 'منو')
+@section('title', $product->name)
 
 @section('breadcrumb')
-    <x-breadcrumb title="منو" desc="منو رستوران قریشی" />
+    @php($product_name = $product->name)
+    <x-breadcrumb :title="$product_name" desc="سفارش غذا" />
 @endsection
 
 @section('content')
@@ -18,15 +19,12 @@
                 </div>
                 <div class="col-12 col-md-7">
                     <div class="single-product-content text-center text-md-left">
-                        <h3>
-                            {{ $product->name }}
-                        </h3>
+                        <p class="single-product-pricing">
+                            {{ number_format($product->price) }} تومان
+                        </p>
                         <p>
                             <strong>دسته بندی:</strong>
                             {{ $product->category->name }}
-                        </p>
-                        <p class="single-product-pricing">
-                            {{ number_format($product->price) }} تومان
                         </p>
                         <p>
                             <strong>مشخصات:</strong>
@@ -52,7 +50,7 @@
                         </ul>
                         @guest
                             <div class="mt-5">
-                                <a href="http://127.0.0.1:8000/menu" class="boxed-btn icon-btn">
+                                <a href="{{ route('login') }}" class="boxed-btn icon-btn">
                                     برای سفارش وارد شوید
                                     <i class="fas fa-sign-in-alt"></i>
                                 </a>
@@ -75,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="owl-carousel owl-theme">
+            <div class="owl-carousel owl-theme carousel-products">
                 @foreach($related_products as $related_product)
                     <div class="item text-center">
                         <div class="single-product-item">

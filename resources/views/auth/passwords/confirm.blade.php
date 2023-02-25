@@ -45,7 +45,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-6 d-none d-lg-block login-image" style="background-image: url('{{ asset('assets/img/a.jpg') }}')"></div>
+            <div class="col-6 d-none d-lg-block welcome-image" style="background-image: url('{{ asset('assets/img/password.jpg') }}')"></div>
         </div>
     </div>
 @endsection
