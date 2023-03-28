@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="name">نام و نام خانوادگی</label>
-                                <input type="text" placeholder="نام" name="name" id="name" required @error('name') class="is-invalid" @enderror autocomplete="name" autofocus>
+                                <input type="text" placeholder="نام" name="name" id="name" required @error('name') class="is-invalid" @enderror value="{{ old('name') ?? session('user.name') ?? '' }}" autocomplete="name" autofocus>
 
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="phone">شماره تلفن همراه</label>
-                                <input type="text" placeholder="شماره تلفن" name="phone" id="phone" required @error('phone') class="is-invalid" @enderror autocomplete="phone">
+                                <input type="text" placeholder="شماره تلفن" name="phone" id="phone" required @error('phone') class="is-invalid" @enderror value="{{ old('phone') ?? session('user.phone') ?? '' }}" autocomplete="phone">
 
                                 @error('phone')
                                 <span class="invalid-feedback" role="alert">

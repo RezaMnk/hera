@@ -89,7 +89,9 @@ class LoginController extends Controller
 
         session()->flash('user', [
             'user_id' => $user->id,
-            'remember' => $request->has('remember')
+            'phone' => $user->phone,
+            'remember' => $request->has('remember'),
+            'referrer' => 'login'
         ]);
 
         return redirect()->route('2fa.index');

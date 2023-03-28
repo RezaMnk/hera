@@ -198,7 +198,6 @@
 	    z-index: 999;
 	    color: #fff;
 	}
-
 }
 
 /* Mobile Layout: 320px. */
@@ -569,6 +568,16 @@
     }
     .cart-btn:not(.mobile-add-to-cart):not(.product) {
         display: none !important;
+    }
+
+    .single-product-item {
+        min-height: 400px;
+    }
+
+    .add-to-cart-form {
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
 }
 /* Wide Mobile Layout: 480px. */

@@ -1,5 +1,5 @@
 @auth
-    <form action="{{ route('cart.add', $product->id) }}" method="post">
+    <form action="{{ route('cart.add', $product->id) }}" class="add-to-cart-form" method="post">
         @csrf
         <button type="submit" class="cart-btn icon-btn">
                 افزودن به سبد

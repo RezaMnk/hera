@@ -85,7 +85,10 @@ class RegisterController extends Controller
 
         session()->flash('user', [
             'user_id' => $user->id,
-            'remember' => $request->has('remember')
+            'phone' => $user->phone,
+            'name' => $user->name,
+            'remember' => $request->has('remember'),
+            'referrer' => 'register'
         ]);
 
         return redirect()->route('2fa.index');

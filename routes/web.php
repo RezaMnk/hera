@@ -29,6 +29,7 @@ Route::controller(App\Http\Controllers\Auth\TwoFAController::class)->prefix('2fa
     Route::get('/', 'index')->name('index');
     Route::post('/', 'check');
     Route::get('/resend', 'resend')->name('resend');
+    Route::get('/previous', 'previous')->name('previous');
 });
 
 /*

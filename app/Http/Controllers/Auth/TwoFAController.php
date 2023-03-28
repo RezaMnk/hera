@@ -96,6 +96,18 @@ class TwoFAController extends Controller
     }
 
     /**
+     * Resend 2FA code
+     *
+     * @return RedirectResponse
+     */
+    public function previous()
+    {
+        session()->reflash();
+
+        return redirect()->route(session('user.referrer'));
+    }
+
+    /**
      * Generate 2FA code
      *
      * @return RedirectResponse|int

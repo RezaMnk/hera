@@ -2331,11 +2331,11 @@ ul.social-link-team li a {
 .auth-form input[type=submit] {
   padding: 7px 30px;
 }
-.auth-form a.forgot-password {
+.auth-form a.forgot-password, .auth-form a.previous-page {
   margin-right: 20px;
   font-size: 16px;
 }
-.auth-form a.forgot-password:hover {
+.auth-form a.forgot-password:hover, .auth-form a.previous-page:hover {
   color: #051922;
 }
 .auth-form a.register, .auth-form a.login {
@@ -2568,7 +2568,7 @@ ul.social-link-team li a {
 }
 
 .single-product-item h3 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 6px;
 }
@@ -2605,9 +2605,6 @@ a.cart-btn i, button.cart-btn i {
   line-height: 2rem;
 }
 a.cart-btn.mobile-add-to-cart, button.cart-btn.mobile-add-to-cart {
-  position: absolute;
-  top: 15px;
-  right: 15px;
   max-width: fit-content;
   font-size: 16px;
   padding: 5px 15px;
@@ -2898,6 +2895,10 @@ table.order-details tbody td {
   box-shadow: 0 0 20px #e4e4e4;
   padding-bottom: 20px;
   border-radius: 5px;
+  min-height: 500px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .address-modal {

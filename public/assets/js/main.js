@@ -181,7 +181,9 @@
         // isotop inner
         setTimeout(function() {
             $(".product-lists").isotope({
-                isOriginLeft: false
+                isOriginLeft: false,
+                layoutMode: 'fitRows',
+
             });
         }, 100);
 

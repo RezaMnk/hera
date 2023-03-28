@@ -13,6 +13,8 @@
                 <div class="auth-form">
                     <form method="POST" action="{{ route('2fa.index') }}">
                         @csrf
+                        @dump(session()->all())
+
                         <div class="row mb-5">
                             <div class="col-12">
                                 <label for="code">کد تایید دو مرحله ای</label>
@@ -28,6 +30,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <input type="submit" value="تایید کد">
+                                <a href="{{ route('2fa.previous') }}" class="previous-page">بازگشت</a>
                             </div>
                             <div class="col-4 text-right">
                                 <div class="row" id="countdown-container">
