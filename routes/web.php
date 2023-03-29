@@ -118,15 +118,7 @@ Route::get('/fake_it', function () {
 
 
 Route::get('/test', function () {
-    $created_categories = [];
-
-    $category = \App\Models\Category::create([
-        'name' => 'salam',
-        'image' => 'sala'
-    ]);
-    $created_categories[] = [$category => $category->id];
-
-    dd($category->id);
+    dd(\App\Models\Map::search(34, 52));
 });
 
 

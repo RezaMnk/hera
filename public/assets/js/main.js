@@ -228,7 +228,7 @@ async function get_map(id)
     })
 }
 
-async function search_address(address)
+async function search_address(lat, long)
 {
     return fetch('/api/search-address', {
         method: 'POST',
@@ -238,7 +238,8 @@ async function search_address(address)
             "X-CSRF-Token": document.querySelector('input[name=_token]').value
         },
         body: JSON.stringify({
-            address: address,
+            lat: lat,
+            long: long,
         })
     }).then((data) => {
         return data.json()

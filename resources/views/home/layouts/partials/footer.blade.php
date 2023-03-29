@@ -17,7 +17,8 @@
                             سعادت آباد، نبش بنفشه، رستوران قریشی</li>
                         <li>
                             ایمیل:
-                            support@ghoreishicatering.com</li>
+                            <a href="mailto:info@ghoreishicatering.com" target="_blank">info@ghoreishicatering.com</a>
+                        </li>
                         <li>
                             تلفن:
                             <a href="tel:02166479876">

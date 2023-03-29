@@ -23,9 +23,7 @@ class MapController extends Controller
             'id' => ['required', 'exists:maps'],
             'lat' => ['required', 'numeric', 'max:255'],
             'long' => ['required', 'numeric', 'max:255'],
-            'main_street' => ['required', 'string', 'max:255'],
-            'side_street' => ['nullable', 'string', 'max:255'],
-            'alley' => ['nullable', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
             'house_no' => ['required', 'numeric', 'min:1'],
         ]);
 
@@ -49,9 +47,7 @@ class MapController extends Controller
         $request->validate([
             'lat' => ['required', 'numeric', 'max:255'],
             'long' => ['required', 'numeric', 'max:255'],
-            'main_street' => ['required', 'string', 'max:255'],
-            'side_street' => ['nullable', 'string', 'max:255'],
-            'alley' => ['nullable', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
             'house_no' => ['required', 'numeric', 'min:1'],
         ]);
 

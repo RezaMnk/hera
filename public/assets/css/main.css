@@ -2537,6 +2537,7 @@ ul.social-link-team li a {
   border-radius: 5px;
 }
 .product-filters ul li p {
+  margin-top: 10px;
   font-size: 16px;
 }
 .product-filters ul li.active {
@@ -2652,7 +2653,6 @@ input[type=number] {
   padding: 10px;
   width: 100px;
   margin-bottom: 15px;
-  text-align: center;
 }
 
 .single-product-form button.cart-btn {
@@ -2903,6 +2903,15 @@ table.order-details tbody td {
 
 .address-modal {
   font-size: 16px;
+}
+.address-modal form textarea {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.address-modal form textarea.is-invalid {
+  border-color: #dc3545;
 }
 .address-modal form input[type=text], .address-modal form input[type=tel], .address-modal form input[type=number], .address-modal form input[type=email], .address-modal form input[type=password] {
   width: 100%;
