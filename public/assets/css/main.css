@@ -780,7 +780,7 @@ nav.main-menu li a {
   left: 0;
   top: 0;
   width: 100%;
-  z-index: 9999 !important;
+  z-index: 999 !important;
 }
 .sticky-wrapper.is-sticky .top-header-area {
   background-color: #051922;
@@ -2443,58 +2443,48 @@ ul.social-link-team li a {
 # Contact Page Styles
 
 ----------------------------------------------------------------------------- */
-.contact-from-section .branches .branch-card {
-  padding: 0 30px;
-  text-align: center;
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  max-width: 720px;
+  height: 70vh;
+  min-height: 600px;
+  margin: auto;
 }
-.contact-from-section .branches .branch-card .shadow-card {
-  padding: 0;
-}
-.contact-from-section .branches .branch-card .branch-image img {
-  border-radius: 5px 5px 0 0;
-}
-.contact-from-section .branches .branch-card .branch-info {
-  padding: 15px;
-}
-.contact-from-section .branches .branch-card .branch-info .branch-title {
-  color: #051922;
-  font-size: 30px;
+.contact-section .contact-header {
   position: relative;
-  margin-bottom: 15px;
-  padding-bottom: 7px;
+  text-align: center;
+  padding-bottom: 10px;
 }
-.contact-from-section .branches .branch-card .branch-info .branch-title:after {
+.contact-section .contact-header:after {
   position: absolute;
   content: "";
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  width: 50px;
-  height: 2px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 5px;
   background-color: #ee1d23;
   margin: 0 auto;
 }
-.contact-from-section .branches .branch-card .branch-info .branch-address {
-  font-size: 18px;
-  margin-bottom: 30px;
+.contact-section p {
+  text-align: center;
 }
-.contact-from-section .branches .branch-card .branch-info .branch-call {
-  margin-bottom: 20px;
+.contact-section a {
+  color: #051922;
 }
-.contact-from-section .branches .branch-card .branch-info .branch-call a {
-  transition: 0.3s;
-  border-radius: 50px;
-  background-color: #ee1d23;
-  color: #fff;
-  padding: 10px 20px;
+.contact-section .contact-phone {
+  font-size: 38px;
 }
-.contact-from-section .branches .branch-card .branch-info .branch-call a i {
-  margin-right: 10px;
-  font-size: 14px;
+.contact-section .contact-email {
+  font-size: 28px;
 }
-.contact-from-section .branches .branch-card .branch-info .branch-call a:hover {
-  color: #fff;
-  background-color: #051922;
+
+.contact-image {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .find-location p {
@@ -2537,6 +2527,7 @@ ul.social-link-team li a {
   border-radius: 5px;
 }
 .product-filters ul li p {
+  margin-top: 10px;
   font-size: 16px;
 }
 .product-filters ul li.active {
@@ -2652,7 +2643,6 @@ input[type=number] {
   padding: 10px;
   width: 100px;
   margin-bottom: 15px;
-  text-align: center;
 }
 
 .single-product-form button.cart-btn {
@@ -2903,6 +2893,15 @@ table.order-details tbody td {
 
 .address-modal {
   font-size: 16px;
+}
+.address-modal form textarea {
+  width: 100%;
+  padding: 7px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.address-modal form textarea.is-invalid {
+  border-color: #dc3545;
 }
 .address-modal form input[type=text], .address-modal form input[type=tel], .address-modal form input[type=number], .address-modal form input[type=email], .address-modal form input[type=password] {
   width: 100%;

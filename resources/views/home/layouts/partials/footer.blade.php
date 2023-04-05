@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-box about-widget">
                     <h2 class="widget-title">درباره ما</h2>
-                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است.</p>
+                    <p>گروه غذایی قریشی با سال ها سابقه درخشان در زمینه تهیه و توزیع غذای تشریفات،مجالس،کنفرانس ها و اجلاس ها که مدیون 50 سال فعالیت خانوادگی میباشد.</p>
                 </div>
             </div>
             <div class="col-lg-3 offset-lg-1 col-md-6">
@@ -14,14 +14,15 @@
                     <ul>
                         <li>
                             آدرس:
-                            سعادت آباد، نبش بنفشه، رستوران قریشی</li>
+                            تهران، خیابان پاسداران، پایین‌تر از چهارراه فرمانیه، پلاک 752</li>
                         <li>
                             ایمیل:
-                            support@ghoreishicatering.com</li>
+                            <a href="mailto:info@ghoreishicatering.com" target="_blank">info@ghoreishicatering.com</a>
+                        </li>
                         <li>
                             تلفن:
-                            <a href="tel:02166479876">
-                                <bdi>021 6647 9876</bdi>
+                            <a href="tel:0212959">
+                                <bdi>021 2959</bdi>
                             </a>
                         </li>
                     </ul>
@@ -33,8 +34,8 @@
                     <ul>
                         <li><a href="{{ route('home.home') }}">صفحه اصلی</a></li>
                         <li><a href="{{ route('home.menu') }}">سفارش آنلاین</a></li>
-                        <li><a href="{{ route('home.company') }}">غذای شرکتی</a></li>
-                        <li><a href="{{ route('home.posts') }}">وبلاگ</a></li>
+{{--                        <li><a href="{{ route('home.company') }}">غذای شرکتی</a></li>--}}
+{{--                        <li><a href="{{ route('home.posts') }}">وبلاگ</a></li>--}}
                         <li><a href="{{ route('home.about') }}">درباره ما</a></li>
                         <li><a href="{{ route('home.contact') }}">تماس با ما</a></li>
                     </ul>

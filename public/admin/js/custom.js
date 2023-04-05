@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .listen('NewOrder', (e) => {
             new_order_beep.play();
             toastr.options = {
-                timeOut: 10000,
+                timeOut: 0,
                 progressBar: true,
                 showMethod: "slideDown",
                 hideMethod: "slideUp",

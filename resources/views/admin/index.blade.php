@@ -118,9 +118,9 @@
                         مشاهده همه
                     </a>
                 </div>
-                <div class="card-body pt-2">
+                <div class="card-body py-2">
                     <ul class="list-group list-group-flush">
-                        @foreach(\App\Models\Order::query()->latest()->take(4)->get() as $order)
+                        @forelse(\App\Models\Order::query()->latest()->take(4)->get() as $order)
                             <li class="list-group-item d-flex align-items-center p-l-r-0">
                                 <div>
                                     <h6 class="m-b-0 primary-font">سفارش شماره {{ $order->id }}</h6>
@@ -132,7 +132,13 @@
                                     <span class="badge badge-warning ml-auto">در انتظار بررسی</span>
                                 @endif
                             </li>
-                        @endforeach
+                        @empty
+                            <li class="list-group-item d-flex align-items-center p-l-r-0">
+                                <div>
+                                    <h6 class="m-b-0 primary-font">تا کنون سفارشی ثبت نشده است.</h6>
+                                </div>
+                            </li>
+                        @endforelse
                     </ul>
                 </div>
             </div>
@@ -145,7 +151,7 @@
                         مشاهده همه
                     </a>
                 </div>
-                <div class="card-body pt-2">
+                <div class="card-body py-2">
                     <ul class="list-group list-group-flush">
                         @foreach(\App\Models\User::query()->latest()->take(4)->get() as $user)
                             <li class="list-group-item d-flex align-items-center p-l-r-0">

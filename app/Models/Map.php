@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Map extends Model
 {
@@ -17,9 +19,7 @@ class Map extends Model
      */
     protected $fillable = [
         'user_id',
-        'main_street',
-        'side_street',
-        'alley',
+        'address',
         'house_no',
         'lat',
         'long',
@@ -44,48 +44,42 @@ class Map extends Model
      */
     public function address()
     {
-        $address = 'خیابان '. $this->main_street;
-
-        if ($this->side_street)
-            $address .= '، خیابان '. $this->side_street;
-
-        if ($this->alley)
-            $address .= '، کوچه '. $this->alley;
-
-        $address .= '، پلاک '. $this->house_no;
-
-        return $address;
+        return $this->address .'، پلاک '. $this->house_no;
     }
 
 
     /**
      * Search address and get lat, long of first query
      *
-     * @param $address
+     * @param $lat
+     * @param $long
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    public static function search($address)
+    public static function search($lat, $long)
     {
+        Log::info($lat);
+        Log::info($long);
         $client = new Client();
-        $response = $client->request('POST', 'https://map.ir/search/v2', [
+//        $response = $client->request('GET', 'https://map.ir/reverse/no/', [
+//
+//            'headers' => [
+//                'content-type' => 'application/json',
+//                'x-api-key' => env('MAP_IR_API_KEY'),
+//            ],
+//            'body' => json_encode([
+//                'lat' => $lat,
+//                'lon' => $long,
+//            ])
+//        ]);
+        $response = $client->request('GET', "https://api.neshan.org/v5/reverse?lat={$lat}&lng={$long}", [
 
             'headers' => [
-                'content-type' => 'application/json',
-                'x-api-key' => env('MAP_IR_API_KEY'),
-            ],
-            'body' => json_encode([
-                'text' => $address,
-                '$filter' => 'province eq تهران',
-            ])
+                'Api-Key' => env('NESHAN_SERVICE_API_KEY'),
+            ]
         ]);
 
         $response = json_decode($response->getBody());
-        list($long, $lat) = $response->value[0]->geom->coordinates;
-
-        return [
-            'lat' => $lat,
-            'long' => $long,
-        ];
+        return $response->formatted_address;
     }
 }

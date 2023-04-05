@@ -117,4 +117,15 @@ class Order extends Model
         $this->read = true;
         $this->touch();
     }
+
+
+    /**
+     * Get location link
+     *
+     * @return
+     */
+    public function get_location()
+    {
+        return "https://www.google.com/maps/place/". $this->map->lat .",". $this->map->long;
+    }
 }

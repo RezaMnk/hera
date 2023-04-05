@@ -3,74 +3,54 @@
 # Contact Page Styles
 
 ----------------------------------------------------------------------------- */
-.contact-from-section {
-    .branches {
-        .branch-card {
-            padding: 0 30px;
-            text-align: center;
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    max-width: 720px;
+    height: 70vh;
+    min-height: 600px;
+    margin: auto;
 
-            .shadow-card {
-                padding: 0;
-            }
+    .contact-header {
+        position: relative;
+        text-align: center;
+        padding-bottom: 10px;
 
-            .branch-image {
-                img {
-                    border-radius: 5px 5px 0 0;
-                }
-            }
-
-            .branch-info {
-                padding: 15px;
-
-                .branch-title {
-                    color: $text-color;
-                    font-size: 30px;
-                    position: relative;
-                    margin-bottom: 15px;
-                    padding-bottom: 7px;
-
-                    &:after {
-                        position: absolute;
-                        content: "";
-                        left: 0px;
-                        right: 0px;
-                        bottom: 0px;
-                        width: 50px;
-                        height: 2px;
-                        background-color: $primary-color;
-                        margin: 0 auto;
-                    }
-                }
-
-                .branch-address {
-                    font-size: 18px;
-                    margin-bottom: 30px;
-                }
-
-                .branch-call {
-                    a {
-                        transition: 0.3s;
-                        border-radius: 50px;
-                        background-color: $primary-color;
-                        color: $white-color;
-                        padding: 10px 20px;
-
-                        i {
-                            margin-right: 10px;
-                            font-size: 14px;
-                        }
-
-                        &:hover {
-                            color: $white-color;
-                            background-color: $text-color;
-                        }
-                    }
-
-                    margin-bottom: 20px;
-                }
-            }
+        &:after {
+            position: absolute;
+            content: "";
+            right: 0;
+            left: 0;
+            bottom: 0;
+            width: 100px;
+            height: 5px;
+            background-color: $primary-color;
+            margin: 0 auto;
         }
     }
+
+    p {
+        text-align: center;
+    }
+
+    a {
+        color: $text-color;
+    }
+
+    .contact-phone {
+        font-size: 38px;
+    }
+
+    .contact-email {
+        font-size: 28px;
+    }
+}
+
+.contact-image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .find-location p {

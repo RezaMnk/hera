@@ -227,61 +227,34 @@
                         <input type="hidden" name="long" id="update-long">
                         <input type="hidden" name="id" id="update-id">
 
-                        <div class="col-12 col-md-6 mb-3">
-                            <label for="update-main_street">
-                                خیابان اصلی
-                                <span class="text-danger">*</span>
+                        <div class="col-12 mb-3">
+                            <label for="update-address">
+                                آدرس
                             </label>
-                            <input type="text" placeholder="خیابان اصلی" name="main_street" id="update-main_street" required class="address-data @error('main_street') is-invalid @enderror">
+                            <textarea placeholder="آدرس دقیق" name="address" id="update-address" required @error('address') class="is-invalid" @enderror></textarea>
 
-                            @error('main_street')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        @error('address')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
-                        <div class="col-12 col-md-6 mb-3">
-                            <label for="update-side_street">خیابان فرعی</label>
-                            <input type="text" placeholder="خیابان فرعی" name="side_street" id="update-side_street" class="address-data @error('side_street') is-invalid @enderror">
-
-                            @error('side_street')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6 mb-3">
-                            <label for="update-alley">کوچه</label>
-                            <input type="text" placeholder="کوچه" name="alley" id="update-alley" class="address-data @error('alley') is-invalid @enderror">
-
-                            @error('alley')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-md-6 mb-3">
+                        <div class="col-12 mb-3">
                             <label for="update-house_no">
                                 پلاک
-                                <span class="text-danger">*</span>
                             </label>
                             <input type="number" placeholder="پلاک" min="1" name="house_no" id="update-house_no" required @error('house_no') class="is-invalid" @enderror>
 
-                            @error('house_no')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        @error('house_no')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
                     </form>
                     <div class="row mb-3 mt-3">
-                        <div class="col-6">
+                        <div class="col-12">
                             انتخاب روی نقشه
-                        </div>
-                        <div class="col-6 mb-2 text-right">
-                            <a href="javascript: update_get_by_address()" class="bordered-btn btn-small">
-                                دریافت موقعیت از آدرس
-                            </a>
                         </div>
                         <div class="col-12">
                             <div class="position-relative">
@@ -323,61 +296,34 @@
                             <input type="hidden" name="lat" id="add-lat">
                             <input type="hidden" name="long" id="add-long">
 
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="add-main_street">
-                                    خیابان اصلی
-                                    <span class="text-danger">*</span>
+                            <div class="col-12 mb-3">
+                                <label for="add-address">
+                                    آدرس
                                 </label>
-                                <input type="text" placeholder="خیابان اصلی" name="main_street" id="add-main_street" required class="address-data @error('main_street') is-invalid @enderror">
+                                <textarea placeholder="آدرس دقیق" name="address" id="add-address" required @error('address') class="is-invalid" @enderror></textarea>
 
-                                @error('main_street')
+                            @error('address')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="add-side_street">خیابان فرعی</label>
-                                <input type="text" placeholder="خیابان فرعی" name="side_street" id="add-side_street" class="address-data @error('side_street') is-invalid @enderror">
-
-                                @error('side_street')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <label for="add-alley">کوچه</label>
-                                <input type="text" placeholder="کوچه" name="alley" id="add-alley" class="address-data @error('alley') is-invalid @enderror">
-
-                                @error('alley')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
+                            <div class="col-12 mb-3">
                                 <label for="add-house_no">
                                     پلاک
-                                    <span class="text-danger">*</span>
                                 </label>
                                 <input type="number" placeholder="پلاک" min="1" name="house_no" id="add-house_no" required @error('house_no') class="is-invalid" @enderror>
 
-                                @error('house_no')
+                            @error('house_no')
                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             </div>
                         </form>
                         <div class="row mb-3 mt-3">
-                            <div class="col-6">
+                            <div class="col-12">
                                 انتخاب روی نقشه
-                            </div>
-                            <div class="col-6 mb-2 text-right">
-                                <a href="javascript: add_get_by_address()" class="bordered-btn btn-small">
-                                    دریافت موقعیت از آدرس
-                                </a>
                             </div>
                             <div class="col-12">
                                 <div class="position-relative">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Map;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
 {
@@ -29,10 +30,11 @@ class ApiController extends Controller
         session()->keep('discount');
 
         $request->validate([
-            'address' => ['required', 'string']
+            'lat' => ['required', 'between:-90,90'],
+            'long' => ['required', 'between:-180,180']
         ]);
 
-        $lat_long = Map::search($request->address);
+        $lat_long = Map::search($request->lat, $request->long);
 
         return json_encode($lat_long);
     }

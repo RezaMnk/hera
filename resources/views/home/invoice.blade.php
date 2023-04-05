@@ -3,10 +3,6 @@
 
 @section('title', 'صورت حساب')
 
-@section('header-assets')
-    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('content')
     <div class="card" id="section-to-print">
 
@@ -108,7 +104,7 @@
                 <p class="text-center small text-muted m-t-50">
                     <span class="row">
                         <span class="col-md-6 offset-md-3">
-                            رستوران قریشی، اولین تهیه غذای آنلاین ایرانی
+                            تهیه غذای قریشی، بزرگترین تهیه غذای ایرانی
                         </span>
                     </span>
                 </p>
@@ -116,7 +112,10 @@
             <div class="text-right d-print-none">
                 <hr class="my-5">
                 <a href="javascript:window.print()" class="btn btn-light m-l-5 my-1">
-                    <i class="fa fa-print m-r-5"></i> چاپ
+                    <i class="fa fa-print m-r-5"></i>چاپ
+                </a>
+                <a href="{{ $order->get_location() }}" target="_blank" class="btn btn-success m-l-5 my-1">
+                    <i class="fa fa-location-arrow m-r-5"></i>مسیریابی
                 </a>
                 <a href="{{ route('home.home') }}" class="btn btn-danger m-l-5 my-1">
                     <i class="fa fa-home m-r-5"></i>

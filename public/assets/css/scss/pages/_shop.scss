@@ -25,6 +25,7 @@
       }
 
       p {
+          margin-top: 10px;
           font-size: 16px;
       }
 
@@ -155,7 +156,6 @@ input[type="number"] {
   padding: 10px;
   width: 100px;
   margin-bottom: 15px;
-  text-align: center;
 }
 
 .single-product-form button.cart-btn {
@@ -435,6 +435,17 @@ table.order-details {
     form {
         label {
 
+        }
+
+        textarea {
+            width: 100%;
+            padding: 7px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+
+            &.is-invalid {
+                border-color: $danger;
+            }
         }
 
         input {
