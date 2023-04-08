@@ -2332,7 +2332,6 @@ ul.social-link-team li a {
   padding: 7px 30px;
 }
 .auth-form a.forgot-password, .auth-form a.previous-page {
-  margin-right: 20px;
   font-size: 16px;
 }
 .auth-form a.forgot-password:hover, .auth-form a.previous-page:hover {

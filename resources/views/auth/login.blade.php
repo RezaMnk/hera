@@ -19,7 +19,7 @@
                     <form method="POST" action="{{ route('login') }}" onsubmit="event.preventDefault(); submit_form(this)">
                         @csrf
                         <x-recaptcha></x-recaptcha>
-                        @dump(session()->all())
+
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="phone">شماره تلفن همراه</label>
@@ -44,7 +44,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row mb-5">
+                        <div class="row mb-3">
                             <div class="col-12">
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -54,12 +54,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <input type="submit" value="ورود">
+                        <div class="row mb-5">
+                            <div class="col-12">
                                 <a href="{{ route('password.request') }}" class="forgot-password">فراموشی کلمه عبور</a>
                             </div>
-                            <div class="col-4 text-right">
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="submit" value="ورود">
+                            </div>
+                            <div class="col-6 text-right">
                                 <a href="{{ route('register') }}" class="register">ثبت نام</a>
                             </div>
                         </div>

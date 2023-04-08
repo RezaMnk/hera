@@ -9,11 +9,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-lg-6">
                 <div class="auth-form">
                     <form method="POST" action="{{ route('2fa.index') }}">
                         @csrf
-                        @dump(session()->all())
 
                         <div class="row mb-5">
                             <div class="col-12">
@@ -28,11 +27,11 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-12 col-md-6 d-flex align-items-center justify-content-between justify-content-md-start">
                                 <input type="submit" value="تایید کد">
-                                <a href="{{ route('2fa.previous') }}" class="previous-page">بازگشت</a>
+                                <a href="{{ route('2fa.previous') }}" class="previous-page ml-3">بازگشت</a>
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-12 col-md-6 text-center text-md-right mt-4 mt-md-0">
                                 <div class="row" id="countdown-container">
                                     <p class="col-8">
                                         ارسال مجدد تا
@@ -44,7 +43,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-6 welcome-image" style="background-image: url('{{ asset('assets/img/password.jpg') }}')"></div>
+            <div class="col-6 d-none d-lg-block welcome-image" style="background-image: url('{{ asset('assets/img/password.jpg') }}')"></div>
         </div>
     </div>
 @endsection
