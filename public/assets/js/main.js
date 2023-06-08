@@ -30,6 +30,7 @@
             items: 1,
             loop: true,
             autoplay: true,
+            smartSpeed: 1000,
             nav: true,
             rtl: true,
             dots: false,
@@ -95,6 +96,26 @@
                 }
             }
         });
+        // more products carousel
+        $(".carousel-products").owlCarousel({
+            items: 5,
+            rtl: true,
+            loop:false,
+            dots: false,
+            margin:30,
+            padding:30,
+            responsive:{
+                0:{
+                    items: 1,
+                },
+                600:{
+                    items: 3,
+                },
+                1000:{
+                    items: 5,
+                }
+            }
+        });
 
         // projects filters isotop
         $(".product-filters li").on('click', function () {
@@ -115,12 +136,14 @@
         // homepage slides animations
         $(".homepage-slider").on("translate.owl.carousel", function(){
             $(".hero-text-tablecell .subtitle").removeClass("animated fadeInUp").css({'opacity': '0'});
+            $(".hero-text-tablecell h3").removeClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.1s'});
             $(".hero-text-tablecell h1").removeClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.3s'});
             $(".hero-btns").removeClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.5s'});
         });
 
         $(".homepage-slider").on("translated.owl.carousel", function(){
             $(".hero-text-tablecell .subtitle").addClass("animated fadeInUp").css({'opacity': '0'});
+            $(".hero-text-tablecell h3").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.2s'});
             $(".hero-text-tablecell h1").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.3s'});
             $(".hero-btns").addClass("animated fadeInUp").css({'opacity': '0', 'animation-delay' : '0.5s'});
         });

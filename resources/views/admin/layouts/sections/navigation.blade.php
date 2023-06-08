@@ -82,7 +82,7 @@
                         </div>
                         <div>
                             <h6 class="font-size-13 line-height-22 primary-font m-b-5">سفارشات</h6>
-                            <h4 class="m-b-0 primary-font font-weight-bold line-height-30">{{ \App\Models\Order::calc() }}</h4>
+                            <h4 class="m-b-0 primary-font font-weight-bold line-height-30">{{ \App\Models\Order::calc(['status' => 'success']) }}</h4>
                         </div>
                     </div>
                 </a>
@@ -136,7 +136,22 @@
                         </div>
                         <div>
                             <h6 class="font-size-13 line-height-22 primary-font m-b-5">همه سفارشات</h6>
-                            <h4 class="m-b-0 primary-font font-weight-bold line-height-30">{{ \App\Models\Order::calc() }}</h4>
+                            <h4 class="m-b-0 primary-font font-weight-bold line-height-30">{{ \App\Models\Order::calc(['status' => 'success']) }}</h4>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a class="{{ request()->routeIs('admin.orders.failed') ? 'active' : '' }} mb-2" href="{{ route('admin.orders.failed') }}">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <div class="icon-block bg-danger text-white mr-3">
+                                <i class="fa fa-times"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h6 class="font-size-13 line-height-22 primary-font m-b-5">سفارشات ناموفق</h6>
+                            <h4 class="m-b-0 primary-font font-weight-bold line-height-30">{{ \App\Models\Order::calc(['status' => 'failed']) }}</h4>
                         </div>
                     </div>
                 </a>

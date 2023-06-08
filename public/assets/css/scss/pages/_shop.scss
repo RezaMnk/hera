@@ -598,6 +598,10 @@ table.order-details {
             font-size: 18px;
         }
     }
+
+    .order-status-mobile {
+        font-size: 16px;
+    }
 }
 
 .cart-item-mobile {
@@ -626,10 +630,10 @@ table.order-details {
 
 .filters-carousel {
     .owl-prev {
-        right: -15px;
+        right: 0;
     }
 
     .owl-next {
-        left: -15px;
+        left: 0;
     }
 }

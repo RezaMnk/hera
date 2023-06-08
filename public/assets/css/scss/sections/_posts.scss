@@ -295,14 +295,18 @@ span.comment-date {
   margin-bottom: 10px;
 }
 
-.recent-posts ul li:before, .archive-posts ul li:before {
-  position: absolute;
-  left: 0;
-  top: 50px;
-  transform: translateY(-50%);
-  content: "\f104";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
+.recent-posts ul li, .archive-posts ul li {
+    position: relative;
+
+    &:before {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        content: "\f104";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+    }
 }
 
 .tag-section ul li {
@@ -327,23 +331,23 @@ span.comment-date {
 
 .company-food-section {
     margin-bottom: 50px;
+    padding: 50px 0;
 
     .company-food-text {
-        h1 {
+        h2 {
             position: relative;
-            text-align: center;
+            text-align: right;
             padding-bottom: 10px;
 
             &:after {
                 position: absolute;
                 content: "";
                 right: 0;
-                left: 0;
                 bottom: 0;
-                width: 100px;
+                width: 150px;
                 height: 5px;
                 background-color: $primary-color;
-                margin: 0 auto;
+                margin: 0;
             }
         }
 

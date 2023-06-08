@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrapFour();
+
+        if($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
 
         Blade::directive('owner', function ($expression) {
             return "<?php if (auth()->user()->is_owner()): ?>";

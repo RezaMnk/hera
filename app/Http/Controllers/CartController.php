@@ -23,6 +23,9 @@ class CartController extends Controller
 
         $quantity = $request->has('quantity') ? $request->quantity : 1;
 
+        if ($product->price <= 0)
+            redirect()->back()->with('toast.danger', 'این محصول را نمی توان سفارش داد');
+
         if (cart()->exists($product))
         {
             $now_quantity = cart()->get($product)['quantity'];
@@ -32,7 +35,6 @@ class CartController extends Controller
             cart()->put($product, $quantity);
 
 
-//        toast('محصول با موفقیت به <a href="'. route('home.cart') .'">سبد خرید</a> افزوده شد', 'success');
         return redirect()->back()->with('toast.success', 'محصول با موفقیت به سبد خرید افزوده شد');
     }
 

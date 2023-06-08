@@ -177,10 +177,10 @@ p:last-child {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(50%, -100%);
-  -ms-transform: translate(50%, -100%);
-  -o-transform: translate(50%, -100%);
-  transform: translate(50%, -100%);
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  -o-transform: translate(0, -100%);
+  transform: translate(0, -100%);
   height: 50px;
   width: 50px;
 }
@@ -595,6 +595,53 @@ button.boxed-btn {
 
 .sticky-top.sidebar-section {
   top: 150px;
+}
+
+.order-success {
+  background-color: rgba(25, 135, 84, 0.1);
+}
+
+.order-to-pay {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.order-failed {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.company-food-section .company-food-text h1:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 5px;
+  background-color: #ee1d23;
+  margin: 0 auto;
+}
+
+.order-badge {
+  margin-right: 0.5rem;
+}
+.order-badge:before {
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50rem;
+}
+.order-badge.order-badge-success:before {
+  background-color: rgba(25, 135, 84, 0.7);
+}
+.order-badge.order-badge-to-pay:before {
+  background-color: rgba(255, 193, 7, 0.7);
+}
+.order-badge.order-badge-failed:before {
+  background-color: rgba(220, 53, 69, 0.7);
 }
 
 /* -----------------------------------------------------------------------------
@@ -1495,7 +1542,7 @@ html, body {
 }
 
 .hero-btns {
-  margin-top: 35px;
+  margin-top: 20px;
 }
 .hero-btns a.bordered-btn {
   margin-right: 15px;
@@ -1895,10 +1942,13 @@ span.comment-date {
   margin-bottom: 10px;
 }
 
+.recent-posts ul li, .archive-posts ul li {
+  position: relative;
+}
 .recent-posts ul li:before, .archive-posts ul li:before {
   position: absolute;
   left: 0;
-  top: 50px;
+  top: 50%;
   transform: translateY(-50%);
   content: "\f104";
   font-family: "Font Awesome 5 Free";
@@ -1926,22 +1976,22 @@ span.comment-date {
 
 .company-food-section {
   margin-bottom: 50px;
+  padding: 50px 0;
 }
-.company-food-section .company-food-text h1 {
+.company-food-section .company-food-text h2 {
   position: relative;
-  text-align: center;
+  text-align: right;
   padding-bottom: 10px;
 }
-.company-food-section .company-food-text h1:after {
+.company-food-section .company-food-text h2:after {
   position: absolute;
   content: "";
   right: 0;
-  left: 0;
   bottom: 0;
-  width: 100px;
+  width: 150px;
   height: 5px;
   background-color: #ee1d23;
-  margin: 0 auto;
+  margin: 0;
 }
 .company-food-section .company-food-text img {
   position: relative;
@@ -2153,6 +2203,12 @@ a.video-play-btn {
   margin-bottom: 0;
 }
 
+.about-image {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 /* -----------------------------------------------------------------------------
 
 # Shop Banner Styles
@@ -2277,6 +2333,32 @@ ul.social-link-team li a {
   border-radius: 50%;
   display: block;
   margin: 5px;
+}
+
+.about-section {
+  margin-bottom: 50px;
+  padding: 150px 100px;
+}
+.about-section .about-text h2 {
+  position: relative;
+  text-align: right;
+  padding-bottom: 10px;
+}
+.about-section .about-text h2:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  bottom: 0;
+  width: 150px;
+  height: 5px;
+  background-color: #ee1d23;
+  margin: 0;
+}
+.about-section .about-text img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 15px;
 }
 
 /* -----------------------------------------------------------------------------
@@ -3024,6 +3106,9 @@ table.order-details tbody td {
 .profile-section .order-total-price span {
   font-size: 18px;
 }
+.profile-section .order-status-mobile {
+  font-size: 16px;
+}
 
 .cart-item-mobile {
   font-size: 18px;
@@ -3044,10 +3129,10 @@ table.order-details tbody td {
 }
 
 .filters-carousel .owl-prev {
-  right: -15px;
+  right: 0;
 }
 .filters-carousel .owl-next {
-  left: -15px;
+  left: 0;
 }
 
 /* -----------------------------------------------------------------------------

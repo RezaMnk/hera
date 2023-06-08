@@ -17,7 +17,7 @@
                         <div class="row mb-5">
                             <div class="col-12">
                                 <label for="code">کد تایید دو مرحله ای</label>
-                                <input type="text" placeholder="کد تایید" name="code" id="code" pattern="[0-9]{4}" required @error('code') class="is-invalid" @enderror autocomplete="code" autofocus>
+                                <input type="text" placeholder="کد تایید" name="code" id="code" required @error('code') class="is-invalid" @enderror autocomplete="code" autofocus>
 
                                 @error('code')
                                 <span class="invalid-feedback" role="alert">

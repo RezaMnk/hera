@@ -12,13 +12,22 @@
         <div class="cart-products">
             @forelse(cart()->all() as $cart_item)
                 <div class="row my-3">
-                    <div class="col-8">
-                        <a href="{{ route('home.product', $cart_item['product']->slug) }}">
-                            {{ $cart_item['product']->name }}
-                        </a>
-                        <p class="cart-product-price">
-                            قیمت واحد: {{ number_format($cart_item['product']->price) }} تومان
-                        </p>
+                    <div class="col-8 d-flex align-items-center">
+                        <form action="{{ route('cart.remove', $cart_item['product']->id) }}" method="post" id="remove-{{ $cart_item['product']->slug }}">
+                            @csrf
+
+                            <a class="mr-3 text-danger" onclick="document.getElementById('remove-{{ $cart_item['product']->slug }}').submit()">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </form>
+                        <div class="d-inline-block">
+                            <a href="{{ route('home.product', $cart_item['product']->slug) }}">
+                                {{ $cart_item['product']->name }}
+                            </a>
+                            <p class="cart-product-price">
+                                قیمت واحد: {{ number_format($cart_item['product']->price) }} تومان
+                            </p>
+                        </div>
                     </div>
                     <div class="col-4 cart-count-box" data-slug="{{ $cart_item['product']->slug }}">
                         <div class="cart-count-loading"></div>

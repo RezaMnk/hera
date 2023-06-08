@@ -4,7 +4,7 @@
 
 @section('breadcrumb')
     @php($title = $post->title)
-    <x-breadcrumb :title="$title" desc="مقالات تخصصی رستوران قریشی" />
+    <x-breadcrumb :title="$title" desc="مقالات تخصصی تهیه غذای قریشی" />
 @endsection
 
 @section('content')
@@ -40,7 +40,7 @@
                             <ul>
                                 @foreach($recent_posts as $recent_post)
                                     <li>
-                                        <a href="{{ route('home.post', $recent_post->slug) }}">
+                                        <a class="d-block" href="{{ route('home.post', $recent_post->slug) }}">
                                             <img src="{{ $recent_post->get_image() }}" alt="{{ $recent_post->title }}">
                                             <span>
                                                 {{ $recent_post->title }}

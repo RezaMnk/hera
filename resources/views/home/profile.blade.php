@@ -77,12 +77,12 @@
                             <hr>
                         @endunless
                         <div class="row py-3">
-                            <div class="col-8">
+                            <div class="col-12 col-md-8">
                                 <p>
                                     {{ $loop->iteration }}. {{ $map->address() }}
                                 </p>
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-12 col-md-4 text-right">
                                 <a class="address-edit" data-toggle="modal" onclick="update_map_modal({{ $map->id }})" data-target="#edit">
                                     ویرایش
                                 </a>
@@ -93,65 +93,106 @@
                     @endforelse
                 </div>
             </div>
+            <div class="py-5" id="orders">
+                <br>
+            </div>
             <div class="row mt-5">
                 <div class="col-12 mb-4">
                     <h3>
                         سفارش های اخیر:
                     </h3>
                 </div>
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            @forelse($orders as $order)
-                                @unless($loop->first)
-                                    <hr>
-                                @endunless
-                                <div class="row mb-3">
-                                    <div class="col-4 col-md-3 col-lg-2">
-                                        <p class="mb-0 mb-md-2">
-                                            سفارش کد #{{ $order->id }}
-                                        </p>
-                                        <p class="d-block d-md-none order-date">
-                                            <i class="fa fa-calendar"></i>
-                                            {{ $order->created_at() }}
-                                        </p>
-                                    </div>
-                                    <div class="col-4 d-none d-md-block order-date">
+                <div class="col-12 row">
+                    @forelse($orders as $order)
+                        <div class="col-12 border p-3 m-3 order-{{ $order->status }}">
+                            <div class="row mb-3">
+                                <div class="col-6 col-md-3 col-lg-2 d-flex flex-column justify-content-center">
+                                    <p class="mb-0">
+                                        سفارش کد #{{ $order->id }}
+                                    </p>
+                                    <p class="d-block d-md-none order-date">
                                         <i class="fa fa-calendar"></i>
                                         {{ $order->created_at() }}
-                                    </div>
-                                    <div class="col-8 col-md-5 col-lg-6 order-total-price text-right">
+                                    </p>
+                                </div>
+                                <div class="col-3 d-none d-md-flex align-items-center order-date">
+                                    <i class="fa fa-calendar"></i>
+                                    {{ $order->created_at() }}
+                                </div>
+                                <div class="col-3 d-none d-md-flex align-items-center order-date">
+                                    <span class="text-dark order-badge order-badge-{{ $order->status }}">
+                                        @switch($order->status)
+                                            @case('success')
+                                                موفق
+                                                @break
+                                            @case('to-pay')
+                                                در انتظار پرداخت
+                                                @break
+                                            @case('failed')
+                                                ناموفق
+                                                @break
+                                        @endswitch
+                                    </span>
+                                </div>
+                                <div class="col-6 col-md-3 col-lg-4 order-total-price d-flex flex-column align-items-end justify-content-center">
+                                    <p class="mb-0 mb-md-2">
                                         {{ number_format($order->total_price) }}
                                         <span>
-                                            تومان
-                                        </span>
-                                    </div>
+                                        تومان
+                                    </span>
+                                    </p>
+                                    <p class="order-status-mobile d-block d-md-none">
+                                        وضعیت:
+                                        @switch($order->status)
+                                            @case('success')
+                                                موفق
+                                                @break
+                                            @case('to-pay')
+                                                در انتظار پرداخت
+                                                @break
+                                            @case('failed')
+                                                ناموفق
+                                                @break
+                                        @endswitch
+                                    </p>
                                 </div>
-                                <div class="row pb-1">
-                                    <div class="col-7">
-                                        @foreach($order->products as $product)
-                                            @if($loop->iteration < 4)
-                                                <a href="{{ route('home.product', $product->slug) }}" class="order-product-image">
-                                                    <img src="{{ $product->get_image() }}" alt="{{ $product->name }}">
-                                                </a>
-                                            @else
-                                                <span class="more-products">
-                                                    +{{ $order->products->count() - 3 }} محصول دیگر
-                                                </span>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="col-5 text-right">
-                                        <a href="{{ route('order.invoice', $order->id) }}" class="bordered-btn btn-small">
+                            </div>
+                            <div class="row pb-1">
+                                <div class="col-7">
+                                    @foreach($order->products as $product)
+                                        @if($loop->iteration < 4)
+                                            <a href="{{ route('home.product', $product->slug) }}" class="order-product-image">
+                                                <img src="{{ $product->get_image() }}" alt="{{ $product->name }}" title="{{ $product->name }}">
+                                            </a>
+                                        @else
+                                            <span class="more-products">
+                                                +{{ $order->products->count() - 3 }} محصول دیگر
+                                            </span>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                @if($order->status === 'success')
+                                    <div class="col-5 text-right position-relative">
+                                        <a href="{{ route('order.invoice', $order->id) }}" class="bordered-btn btn-small v-middle">
                                             مشاهده فاکتور
                                         </a>
                                     </div>
-                                </div>
-                            @empty
-                                شما هیچ سفارشی ثبت نکرده اید.
-                            @endforelse
+                                @elseif($order->status === 'failed')
+                                    <form id="reorder-{{ $order->id }}" action="{{ route('order.reorder', $order->id) }}" method="POST" class="col-5 text-right position-relative">
+                                        @csrf
+
+                                        <a onclick="document.getElementById('reorder-{{ $order->id }}').submit()" class="bordered-btn btn-small v-middle">
+                                            سفارش مجدد
+                                        </a>
+                                    </form>
+                                @endif
+                            </div>
                         </div>
-                    </div>
+                    @empty
+                        <div class="col-12 border p-3 m-3">
+                            شما هیچ سفارشی ثبت نکرده اید.
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -205,6 +246,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="row mb-3 mt-3">
+                        <div class="col-12">
+                            انتخاب روی نقشه
+                        </div>
+                        <div class="col-12">
+                            <div class="position-relative">
+                                <div id="update-map" class="w-100"></div>
+                                <div class="update-map-loading d-none" id="update-map-loading">
+                                    <div class="loading">
+                                        <div class="spinner-grow text-danger" role="status">
+                                            <span class="sr-only">در حال یافتن آدرس...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <form action="{{ route('map.update', $user->id) }}" method="post" class="row" id="update-maps">
                         @csrf
                         <input type="hidden" name="lat" id="update-lat">
@@ -236,23 +295,6 @@
                             @enderror
                         </div>
                     </form>
-                    <div class="row mb-3 mt-3">
-                        <div class="col-12">
-                            انتخاب روی نقشه
-                        </div>
-                        <div class="col-12">
-                            <div class="position-relative">
-                                <div id="update-map" class="w-100"></div>
-                                <div class="update-map-loading d-none">
-                                    <div class="loading">
-                                        <div class="spinner-grow text-danger" role="status">
-                                            <span class="sr-only">در حال یافتن آدرس...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="cancel-btn" data-dismiss="modal">لغو</button>
@@ -275,6 +317,23 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="row mb-3 mt-3">
+                            <div class="col-12">
+                                انتخاب روی نقشه
+                            </div>
+                            <div class="col-12">
+                                <div class="position-relative">
+                                    <div id="add-map" class="w-100"></div>
+                                    <div class="add-map-loading d-none" id="add-map-loading">
+                                        <div class="loading">
+                                            <div class="spinner-grow text-danger" role="status">
+                                                <span class="sr-only">در حال یافتن آدرس...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <form action="{{ route('map.store', $user->id) }}" method="post" class="row" id="add-maps">
                             @csrf
                             <input type="hidden" name="lat" id="add-lat">
@@ -305,23 +364,6 @@
                                 @enderror
                             </div>
                         </form>
-                        <div class="row mb-3 mt-3">
-                            <div class="col-12">
-                                انتخاب روی نقشه
-                            </div>
-                            <div class="col-12">
-                                <div class="position-relative">
-                                    <div id="add-map" class="w-100"></div>
-                                    <div class="add-map-loading d-none">
-                                        <div class="loading">
-                                            <div class="spinner-grow text-danger" role="status">
-                                                <span class="sr-only">در حال یافتن آدرس...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="cancel-btn" data-dismiss="modal">لغو</button>
@@ -341,6 +383,8 @@
 
 @push('scripts')
     <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+    <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
+
     <script src="{{ asset('assets/js/checkout-maps.js') }}"></script>
     <script>
         icon = L.icon({
@@ -365,7 +409,7 @@
         @if($user->maps->count() < 5)
             async function add_map_modal()
             {
-                add_load_map(35.699758, 51.3359019);
+                add_load_map(35.806102, 51.4592034);
             }
         @endif
     </script>

@@ -3,7 +3,7 @@
 @section('title', 'ثبت نام')
 
 @section('breadcrumb')
-    <x-breadcrumb title="ثبت نام" desc="فرم ثبت نام در رستوران قریشی" />
+    <x-breadcrumb title="ثبت نام" desc="فرم ثبت نام در تهیه غذای قریشی" />
 @endsection
 
 @section('content')

@@ -23,6 +23,9 @@ return new class extends Migration
             $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
             $table->bigInteger('discount_value')->nullable();
             $table->bigInteger('total_price');
+            $table->string('transaction_id')->nullable();
+            $table->string('reference_id')->nullable();
+            $table->enum('status', ['success', 'to-pay', 'failed'])->default('to-pay');
             $table->boolean('read')->default(0);
             $table->timestamps();
         });

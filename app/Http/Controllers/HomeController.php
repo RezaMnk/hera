@@ -35,7 +35,7 @@ class HomeController extends Controller
         $products = Product::query();
 
         if ($request->has('search'))
-            $products->where('name', $request->search);
+            $products->where('name', 'LIKE', '%'. $request->search .'%');
 
         $products = $products->get();
         $categories = Category::query()->whereNot('id', '1')->get();
@@ -49,7 +49,7 @@ class HomeController extends Controller
      */
     public function product(Product $product)
     {
-        $related_products = Product::all();
+        $related_products = Product::all()->where('category_id', $product->category_id)->where('id', '<>', $product->id);
         return view('home.product', compact('product', 'related_products'));
     }
 
@@ -96,6 +96,9 @@ class HomeController extends Controller
      */
     public function checkout()
     {
+        if (! is_active_hours())
+            return redirect()->route('home.cart')->with('toast.warning', 'ساعت کاری به پایان رسیده است');
+
         if (cart()->all()->count() < 1)
             return redirect()->route('home.cart')->with('toast.warning', 'سبد خرید شما خالی می باشد');
 
@@ -117,7 +120,7 @@ class HomeController extends Controller
     public function profile()
     {
         $user = auth()->user();
-        $orders = $user->orders()->take(5)->get();
+        $orders = $user->orders()->whereNot('status', 'to-pay')->take(5)->latest()->get();
         return view('home.profile', compact('user', 'orders'));
     }
 

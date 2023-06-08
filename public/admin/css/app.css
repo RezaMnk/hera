@@ -11656,6 +11656,7 @@ label.image-radio > input {
 }
 
 label.image-radio > input + img {
+    margin: 0 auto;
     max-width: 5rem;
     border-radius: 4px;
 }

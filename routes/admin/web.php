@@ -56,6 +56,9 @@ Route::resource('discounts', 'DiscountController')->except(['create', 'destroy',
 /*
  * Orders routes
  */
+Route::prefix('orders')->name('orders.')->controller('OrderController')->group(function () {
+    Route::get('/failed', 'failed')->name('failed');
+});
 Route::resource('orders', 'OrderController')->except(['edit', 'show', 'destroy', 'update']);
 
 /*

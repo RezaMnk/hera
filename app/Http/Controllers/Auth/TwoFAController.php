@@ -14,7 +14,7 @@ class TwoFAController extends Controller
 {
 
     function __construct() {
-        $this->middleware('wait2fa');
+        $this->middleware(['wait2fa', 'persian_number']);
     }
 
     public function index()
@@ -26,7 +26,7 @@ class TwoFAController extends Controller
 
         if (
             ($last_code && $last_code->updated_at->addMinutes(2) < now())
-            || !$last_code
+            || ! $last_code
         )
         {
             $code = $this->generate2FA();
@@ -122,7 +122,6 @@ class TwoFAController extends Controller
         if ($TwoFACode = $this->getAliveCode($user)) {
 
             $code = $TwoFACode->code;
-//            $TwoFACode->touch();
 
         } else {
 

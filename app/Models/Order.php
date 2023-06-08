@@ -24,6 +24,8 @@ class Order extends Model
         'discount_value',
         'total_price',
         'read',
+        'reference_id',
+        'transaction_id',
     ];
 
 

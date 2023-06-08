@@ -27,6 +27,14 @@ class DatabaseSeeder extends Seeder
                 'name' => 'هزینه ارسال',
                 'value' => '15000',
             ],
+            'start_time' => [
+                'name' => 'ساعت شروع کار مجموعه',
+                'value' => '12:00',
+            ],
+            'end_time' => [
+                'name' => 'ساعت پایان کار مجموعه',
+                'value' => '21:30',
+            ],
             'sms_verify' => [
                 'name' => 'پنل پیامکی - شناسه تایید 2 مرحله ای',
                 'value' => 'verify',

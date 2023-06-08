@@ -16,8 +16,10 @@ class WaitFor2FA
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->session()->has('user.user_id')) {
-            return redirect()->route('login');
+        session()->reflash();
+
+        if (! $request->session()->has('user.user_id')) {
+            return redirect()->route('login')->with(['toast.danger' => 'نشست منقضی شده است']);
         }
 
         return $next($request);

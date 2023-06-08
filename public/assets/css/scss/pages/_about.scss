@@ -92,3 +92,34 @@ ul.social-link-team {
     }
   }
 }
+
+.about-section {
+    margin-bottom: 50px;
+    padding: 150px 100px;
+
+    .about-text {
+        h2 {
+            position: relative;
+            text-align: right;
+            padding-bottom: 10px;
+
+            &:after {
+                position: absolute;
+                content: "";
+                right: 0;
+                bottom: 0;
+                width: 150px;
+                height: 5px;
+                background-color: $primary-color;
+                margin: 0;
+            }
+        }
+
+        img {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 15px;
+        }
+    }
+}

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="رستوران قریشی - خرید آنلاین، تحویل فوری">
+        <meta name="description" content="تهیه غذای قریشی - خرید آنلاین، تحویل فوری">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- title -->
@@ -31,6 +31,8 @@
         <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
 
         @vite('resources/js/app.js')
+
+{{--        @laravelPWA--}}
 
         @yield('styles')
     </head>

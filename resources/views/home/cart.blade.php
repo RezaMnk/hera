@@ -13,19 +13,24 @@
             <div class="row">
                 <div class="col-12 d-block d-md-none">
                     @forelse(cart()->all() as $cart_item)
-                        <div class="cart-item-mobile row">
-                            <div class="col-2 mobile-product-image">
+                        <div class="cart-item-mobile row border p-3 m-0 mb-4">
+                            <div class="col-4 col-md-2 mobile-product-image position-relative">
                                 <a href="{{ route('home.product', $cart_item['product']->slug) }}">
-                                    <img src="{{ $cart_item['product']->get_image() }}" alt="{{ $cart_item['product']->name }}">
+                                    <img src="{{ $cart_item['product']->get_image() }}" alt="{{ $cart_item['product']->name }}" class="v-middle">
                                 </a>
                             </div>
-                            <div class="col-4 mobile-product-name">
-                                <a href="{{ route('home.product', $cart_item['product']->slug) }}">
-                                    {{ $cart_item['product']->name }}
-                                </a>
-                                <span>{{ number_format($cart_item['product']->price) }} تومان</span>
+                            <div class="col-8 col-md-4 mobile-product-name position-relative">
+                                <div class="v-middle">
+                                    <a href="{{ route('home.product', $cart_item['product']->slug) }}">
+                                        {{ $cart_item['product']->name }}
+                                    </a>
+                                    <span>{{ number_format($cart_item['product']->price) }} تومان</span>
+                                </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 d-block d-md-none">
+                                <hr>
+                            </div>
+                            <div class="col-6 col-md-4">
                                 <div class="cart-count-box" data-slug="{{ $cart_item['product']->slug }}">
                                     <div class="cart-count-loading"></div>
                                     <i class="fa fa-plus cart-add-count" data-id="add"></i>
@@ -33,19 +38,16 @@
                                     <i class="fa fa-minus cart-remove-count" data-id="remove"></i>
                                 </div>
                             </div>
-                            <div class="col-2 text-right">
+                            <div class="col-6 col-md-2 text-center text-md-right">
                                 <form action="{{ route('cart.remove', $cart_item['product']->id) }}" method="post" class="mobile-product-remove">
                                     @csrf
 
                                     <button type="submit" class="boxed-btn btn-small">
-                                        <i class="fas fa-times"></i>
+                                        حذف
                                     </button>
                                 </form>
                             </div>
                         </div>
-                        @unless($loop->last)
-                            <hr>
-                        @endunless
                     @empty
                         <p class="ml-5">
                             سبد خرید خالی می باشد!
@@ -139,10 +141,18 @@
                                 </tr>
                                 <tr class="total-data">
                                     <td>
+                                        <strong>۹% مالیات: </strong>
+                                    </td>
+                                    <td data-shipping-price="{{ setting('shipping_price') }}">
+                                        {{ number_format($total * 9/100) }} تومان
+                                    </td>
+                                </tr>
+                                <tr class="total-data">
+                                    <td>
                                         <strong>هزینه نهایی: </strong>
                                     </td>
                                     <td id="total-cart-price">
-                                        {{ number_format($total + setting('shipping_price')) }} تومان
+                                        {{ number_format($total + setting('shipping_price') + ($total * 9/100)) }} تومان
                                     </td>
                                 </tr>
                             </tbody>

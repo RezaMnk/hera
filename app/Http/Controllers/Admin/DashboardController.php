@@ -29,7 +29,7 @@ class DashboardController extends Controller
     public function index()
     {
         $statistics = (object) [
-            'orders' => Order::statistics(now()->subWeek(), now()),
+            'orders' => Order::statistics(now()->subWeek(), now(), ['status' => 'success']),
             'orders_not_read' => Order::statistics(false, now(), ['read' => 'false']),
 
             'users' => User::statistics(now()->subWeek(), now()),

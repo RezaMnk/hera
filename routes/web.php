@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +18,12 @@ use Illuminate\Support\Facades\Route;
  * Auth (Login - Register) routes
  */
 Auth::routes();
+
 Route::controller(App\Http\Controllers\Auth\ForgotPasswordController::class)->prefix('password')->name('password.')->group(function () {
-    Route::post('phone', 'sendResetCodePhone')->name('phone');
+    Route::post('phone', 'sendResetCodePhone')->middleware('persian_number')->name('phone');
 });
 Route::controller(App\Http\Controllers\Auth\ConfirmPasswordController::class)->prefix('password')->name('password.')->group(function () {
-    Route::post('confirm', 'confirm')->name('confirm');
+    Route::post('confirm', 'confirm')->middleware('persian_number')->name('confirm');
 });
 
 
@@ -39,8 +41,8 @@ Route::controller(App\Http\Controllers\HomeController::class)->name('home.')->gr
     Route::get('/', 'index')->name('home');
     Route::get('/menu', 'menu')->name('menu');
     Route::get('/product/{product:slug}', 'product')->name('product');
-    Route::get('/posts', 'posts')->name('posts');
-    Route::get('/post/{post:slug}', 'post')->name('post');
+//    Route::get('/posts', 'posts')->name('posts');
+//    Route::get('/post/{post:slug}', 'post')->name('post');
     Route::get('/about-us', 'about')->name('about');
     Route::get('/contact-us', 'contact')->name('contact');
     Route::get('/company-food', 'company')->name('company');
@@ -68,12 +70,14 @@ Route::controller(App\Http\Controllers\OrderController::class)->prefix('order')-
     Route::post('store', 'store')->name('store');
     Route::post('checkout', 'checkout')->name('checkout');
     Route::get('invoice/{order}', 'invoice')->name('invoice');
+    Route::get('verify_payment/{order}', 'verify_payment')->name('verify_payment');
+    Route::post('reorder/{order}', 'reorder')->name('reorder');
 });
 
 /*
  * Routes of map actions
  */
-Route::middleware('auth')->controller(App\Http\Controllers\MapController::class)->prefix('map')->name('map.')->group(function () {
+Route::middleware(['auth', 'persian_number'])->controller(App\Http\Controllers\MapController::class)->prefix('map')->name('map.')->group(function () {
     Route::post('/update/{user}', 'update')->name('update');
     Route::post('/store/{user}', 'store')->name('store');
 });
@@ -81,7 +85,7 @@ Route::middleware('auth')->controller(App\Http\Controllers\MapController::class)
 /*
  * Routes of profile actions
  */
-Route::middleware('auth')->controller(App\Http\Controllers\ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
+Route::middleware(['auth', 'persian_number'])->controller(App\Http\Controllers\ProfileController::class)->prefix('profile')->name('profile.')->group(function () {
     Route::post('/update', 'update')->name('update');
 });
 
@@ -102,6 +106,15 @@ Route::middleware('auth')->controller(App\Http\Controllers\ApiController::class)
 
 
 /*
+ * --------------------------------- Download company food pdf ---------------------------------
+ */
+
+Route::get('download-pdf', function () {
+    return Storage::download('public/menu.pdf');
+})->name('download-pdf');
+
+
+/*
  * For Test Only --------------------------------------------------
  */
 
@@ -116,9 +129,17 @@ Route::get('/fake_it', function () {
     dd($product);
 });
 
+Route::get('/offline', function () {
+
+    session()->reflash();
+
+    return view('vendor/laravelpwa/offline');
+
+});
+
 
 Route::get('/test', function () {
-    dd(\App\Models\Map::search(34, 52));
+    dd(session()->all());
 });
 
 
@@ -126,7 +147,7 @@ Route::get('/test', function () {
  * Force Login As Admin
  */
 Route::get('/fl', function () {
-    auth()->loginUsingId(1, true);
+    auth()->loginUsingId(2, true);
 
     return redirect()->route('admin.index');
 });

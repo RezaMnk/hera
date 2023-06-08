@@ -14,7 +14,7 @@
                     <ul>
                         <li>
                             آدرس:
-                            تهران، خیابان پاسداران، پایین‌تر از چهارراه فرمانیه، پلاک 752</li>
+                            تهران، خیابان پاسداران، پایین‌تر از چهارراه فرمانیه، پلاک 497</li>
                         <li>
                             ایمیل:
                             <a href="mailto:info@ghoreishicatering.com" target="_blank">info@ghoreishicatering.com</a>
@@ -34,8 +34,6 @@
                     <ul>
                         <li><a href="{{ route('home.home') }}">صفحه اصلی</a></li>
                         <li><a href="{{ route('home.menu') }}">سفارش آنلاین</a></li>
-{{--                        <li><a href="{{ route('home.company') }}">غذای شرکتی</a></li>--}}
-{{--                        <li><a href="{{ route('home.posts') }}">وبلاگ</a></li>--}}
                         <li><a href="{{ route('home.about') }}">درباره ما</a></li>
                         <li><a href="{{ route('home.contact') }}">تماس با ما</a></li>
                     </ul>
@@ -52,7 +50,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <p>
-                    حقوق مادی و معنوی متعلق به <a href="{{ env('APP_URL') }}">رستوران قریشی</a> می باشد.
+                    حقوق مادی و معنوی متعلق به <a href="{{ env('APP_URL') }}">گروه غذایی قریشی</a> می باشد.
                 </p>
             </div>
             <div class="col-lg-6 text-right col-md-12">

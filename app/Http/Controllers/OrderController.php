@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Events\NewOrder;
 use App\Models\Discount;
 use App\Models\Order;
+use Evryn\LaravelToman\CallbackRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Evryn\LaravelToman\Facades\Toman;
 
 class OrderController extends Controller
 {
@@ -43,18 +46,22 @@ class OrderController extends Controller
         }
 
         $sync = [];
-        $total = setting('shipping_price');
+        $total = 0;
         foreach (cart()->all() as $cart_item)
         {
             $sync[$cart_item['product']->id] = ['quantity' => $cart_item['quantity']];
             $total += $cart_item['product']->price * $cart_item['quantity'];
         }
 
+        $total += $total * 9/100;
+
+        $total += setting('shipping_price');
+
         if ($discount)
             if ($discount->type == 'static')
                 $discount_value = min([$discount->value, $total]);
             elseif ($discount->type == 'percent')
-                $discount_value = $total - ($total * ($discount->value/100));
+                $discount_value = $total * ($discount->value/100);
 
 
         $create = [
@@ -73,15 +80,17 @@ class OrderController extends Controller
 
         $order->products()->sync($sync);
 
-        cart()->clear();
-        session()->forget('discount');
+        return $this->request_to_pay($order);
 
-        event(new NewOrder($order));
-
-        if (setting('send_order_submit_sms') == 'true')
-            auth()->user()->send_sms([$order->id], setting('sms_order_submit'));
-
-        return redirect()->route('order.invoice', $order->id)->with('toast.success', 'سفارش با موفقیت ثبت شد');
+//        cart()->clear();
+//        session()->forget('discount');
+//
+//        event(new NewOrder($order));
+//
+//        if (setting('send_order_submit_sms') == 'true')
+//            auth()->user()->send_sms([$order->id], setting('sms_order_submit'));
+//
+//        return redirect()->route('order.invoice', $order->id)->with('toast.success', 'سفارش با موفقیت ثبت شد');
     }
 
     /**
@@ -107,7 +116,7 @@ class OrderController extends Controller
 
             $is_used = auth()->user()->orders()->whereHas('discount', function ($query) use ($discount) {
                 $query->where('id', $discount->id);
-            })->count() > 0;
+            })->where('status', 'success')->count() > 0;
             if ($is_used)
                 return redirect()->route('home.cart')->with('toast.danger', 'کد تخفیف قبلا استفاده شده است');
 
@@ -118,11 +127,31 @@ class OrderController extends Controller
             return redirect()->route('home.checkout');
     }
 
+
+    /**
+     * @param Order $order
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reorder(Order $order)
+    {
+        cart()->clear();
+
+        foreach ($order->products as $product)
+        {
+            cart()->put($product, $product->pivot->quantity);
+        }
+
+        return redirect()->route('home.checkout');
+    }
+
+
     public function invoice(Order $order)
     {
         if (
-            ($order->user_id != auth()->user()->id)
-            && !(auth()->user()->is_admin())
+            (
+                ($order->user_id != auth()->user()->id)
+                && !(auth()->user()->is_admin())
+            ) || $order->status !== 'success'
         )
             abort(404);
 
@@ -130,5 +159,68 @@ class OrderController extends Controller
             $order->read();
 
         return view('home.invoice', compact('order'));
+    }
+
+    public function verify_payment(Request $request,Order $order)
+    {
+        if ($request->Status == 'OK')
+            $payment = Toman::transactionId($order->transaction_id)
+                ->amount($order->total_price)
+                ->verify();
+
+        else {
+            $order->status = 'failed';
+            $order->touch();
+
+            return redirect()->route('home.profile', $order->id)->with('toast.danger', 'خطا در انجام تراکنش! سفارش شما پرداخت نشد.');
+        }
+
+        if ($payment->successful() || $payment->alreadyVerified()) {
+            $referenceId = $payment->referenceId();
+            $order->reference_id = $referenceId;
+            $order->status = 'success';
+            $order->touch();
+
+            cart()->clear();
+            session()->forget('discount');
+
+            event(new NewOrder($order));
+
+            if (setting('send_order_submit_sms') == 'true')
+                auth()->user()->send_sms([$order->id], setting('sms_order_submit'));
+
+            return redirect()->route('order.invoice', $order->id)->with('toast.success', 'سفارش با موفقیت ثبت شد');
+        }
+
+        if ($payment->failed()) {
+            $referenceId = $payment->referenceId();
+            $order->reference_id = $referenceId;
+            $order->status = 'failed';
+            $order->touch();
+
+            return redirect()->route('home.profile', $order->id)->with('toast.danger', 'خطا در انجام تراکنش! سفارش شما پرداخت نشد.');
+        }
+    }
+
+
+    private function request_to_pay(Order $order)
+    {
+        $request = Toman::amount($order->total_price)
+             ->callback(route('order.verify_payment', $order->id))
+             ->mobile($order->user->phone)
+            ->request();
+
+        if ($request->successful()) {
+            $transactionId = $request->transactionId();
+
+            $order->transaction_id = $transactionId;
+            $order->touch();
+
+            return $request->pay();
+        }
+
+        if ($request->failed()) {
+            dd('faild');
+        }
     }
 }

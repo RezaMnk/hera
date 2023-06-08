@@ -8,7 +8,9 @@
             <div>
                 <div class="row align-items-end">
                     <div class="col-6">
+                        @owner
                         <a class="btn btn-primary mb-2" href="{{ route('admin.products.create') }}">افزودن</a>
+                        @endowner
                     </div>
                     <div class="col-6">
                         <form class="d-flex justify-content-end">
@@ -44,7 +46,11 @@
                                         </span>
                                     </td>
                                     <td>
-                                        {{ number_format($product->price) }} تومان
+                                        @if($product->price > 0)
+                                            {{ number_format($product->price) }} تومان
+                                        @else
+                                            ناموجود
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $product->created_at() }}
@@ -60,9 +66,11 @@
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </button>
                                         </a>
+                                        @owner
                                         <button class="btn btn-danger btn-floating" onclick="document.getElementById('delete-submit').value = {{ $product->id }}" data-toggle="modal" data-target="#delete">
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
+                                        @endowner
                                     </td>
                                 </tr>
                             @empty
@@ -95,6 +103,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">لغو</button>
+                    @owner
                     <form action="{{ route('admin.products.destroy') }}" method="post">
                         @csrf
                         <button type="submit" name="id" value="0" id="delete-submit" class="btn btn-danger">
@@ -102,6 +111,7 @@
                             حذف محصول
                         </button>
                     </form>
+                    @endowner
                 </div>
             </div>
         </div>

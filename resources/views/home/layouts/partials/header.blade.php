@@ -37,9 +37,9 @@
                             <li @class(['current-list-item' => request()->routeIs('home.company')])>
                                 <a href="{{ route('home.company') }}">غذای شرکتی</a>
                             </li>
-                            <li @class(['current-list-item' => request()->routeIs('home.posts')])>
-                                <a href="{{ route('home.posts') }}">وبلاگ</a>
-                            </li>
+{{--                            <li @class(['current-list-item' => request()->routeIs('home.posts')])>--}}
+{{--                                <a href="{{ route('home.posts') }}">وبلاگ</a>--}}
+{{--                            </li>--}}
                             <li @class(['current-list-item' => request()->routeIs('home.about')])>
                                 <a href="{{ route('home.about') }}">درباره ما</a>
                             </li>
@@ -169,9 +169,9 @@
                         <h4 @class(['active' => request()->routeIs('home.company')])>
                             <a href="{{ route('home.company') }}">غذای شرکتی</a>
                         </h4>
-                        <h4 @class(['active' => request()->routeIs('home.posts')])>
+                        {{--<h4 @class(['active' => request()->routeIs('home.posts')])>
                             <a href="{{ route('home.posts') }}">وبلاگ</a>
-                        </h4>
+                        </h4>--}}
                         <h4 @class(['active' => request()->routeIs('home.about')])>
                             <a href="{{ route('home.about') }}">درباره ما</a>
                         </h4>
@@ -226,8 +226,14 @@
                         <div class="cart-list-tablecell">
                             @forelse(cart()->all()->take(4) as $cart_item)
                                 <div class="row my-3 cart-item">
-                                    <div class="col-2">
-                                        <img src="{{ $cart_item['product']->get_image() }}" alt="{{ $cart_item['product']->name }}">
+                                    <div class="col-2 pr-0 d-flex align-items-center justify-content-center">
+                                        <form action="{{ route('cart.remove', $cart_item['product']->id) }}" method="post" id="remove-{{ $cart_item['product']->slug }}" class="">
+                                            @csrf
+
+                                            <a class="text-danger" onclick="document.getElementById('remove-{{ $cart_item['product']->slug }}').submit()">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </form>
                                     </div>
                                     <div class="col-6 text-left">
                                         <a href="{{ route('home.product', $cart_item['product']->slug) }}">

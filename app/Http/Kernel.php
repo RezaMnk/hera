@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AdminAuthenticated;
 use App\Http\Middleware\OwnerAuthenticated;
+use App\Http\Middleware\PersianNumber;
 use App\Http\Middleware\Verified;
 use App\Http\Middleware\WaitFor2FA;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -72,5 +73,6 @@ class Kernel extends HttpKernel
         'wait2fa' => WaitFor2FA::class,
         'auth.admin' => AdminAuthenticated::class,
         'auth.owner' => OwnerAuthenticated::class,
+        'persian_number' => PersianNumber::class,
     ];
 }

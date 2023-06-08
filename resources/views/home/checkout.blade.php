@@ -64,26 +64,26 @@
                         خلاصه سفارش:
                     </h3>
                 </div>
-                <div class="col-12 d-block d-md-none">
+                <div class="col-12 d-block d-md-none px-4">
                     @forelse(cart()->all() as $cart_item)
                         <div class="cart-item-mobile row mt-4">
-                            <div class="col-2 mobile-product-image">
+                            <div class="col-4 mobile-product-image">
                                 <a href="{{ route('home.product', $cart_item['product']->slug) }}">
                                     <img src="{{ $cart_item['product']->get_image() }}" alt="{{ $cart_item['product']->name }}">
                                 </a>
                             </div>
-                            <div class="col-4 mobile-product-name">
+                            <div class="col-8 mobile-product-name">
                                 <a href="{{ route('home.product', $cart_item['product']->slug) }}">
                                     {{ $cart_item['product']->name }}
                                 </a>
                                 <span>{{ number_format($cart_item['product']->price) }} تومان</span>
                             </div>
-                            <div class="col-2">
+                            <div class="col-6 mt-3">
                                 <div class="checkout-quantity">
                                     تعداد: {{ $cart_item['quantity'] }}
                                 </div>
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-6 mt-3 text-right">
                                 <div class="checkout-total">
                                     جمع: {{ number_format($cart_item['product']->price * $cart_item['quantity']) }} تومان
                                 </div>
@@ -168,6 +168,14 @@
                                     {{ number_format(setting('shipping_price')) }} تومان
                                 </td>
                             </tr>
+                            <tr class="total-data">
+                                <td>
+                                    <strong>۹% مالیات: </strong>
+                                </td>
+                                <td data-shipping-price="{{ setting('shipping_price') }}">
+                                    {{ number_format($total * 9/100) }} تومان
+                                </td>
+                            </tr>
                             @isset($discount)
                                 <tr class="total-data">
                                     <td>
@@ -192,7 +200,7 @@
                                     <strong>هزینه نهایی: </strong>
                                 </td>
                                 <td id="total-cart-price">
-                                    {{ number_format($total + setting('shipping_price')) }} تومان
+                                    {{ number_format($total + setting('shipping_price') + ($total * 9/100)) }} تومان
                                 </td>
                             </tr>
                             </tbody>
@@ -221,6 +229,23 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="row mb-3 mt-3">
+                        <div class="col-12">
+                            انتخاب روی نقشه
+                        </div>
+                        <div class="col-12">
+                            <div class="position-relative">
+                                <div id="update-map" class="w-100"></div>
+                                <div class="update-map-loading d-none" id="update-map-loading">
+                                    <div class="loading">
+                                        <div class="spinner-grow text-danger" role="status">
+                                            <span class="sr-only">در حال یافتن آدرس...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <form action="{{ route('map.update', auth()->user()->id) }}" method="post" class="row" id="update-maps">
                         @csrf
                         <input type="hidden" name="lat" id="update-lat">
@@ -252,23 +277,6 @@
                         @enderror
                         </div>
                     </form>
-                    <div class="row mb-3 mt-3">
-                        <div class="col-12">
-                            انتخاب روی نقشه
-                        </div>
-                        <div class="col-12">
-                            <div class="position-relative">
-                                <div id="update-map" class="w-100"></div>
-                                <div class="update-map-loading d-none">
-                                    <div class="loading">
-                                        <div class="spinner-grow text-danger" role="status">
-                                            <span class="sr-only">در حال یافتن آدرس...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="cancel-btn" data-dismiss="modal">لغو</button>
@@ -291,6 +299,23 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="row mb-3 mt-3">
+                            <div class="col-12">
+                                انتخاب روی نقشه
+                            </div>
+                            <div class="col-12">
+                                <div class="position-relative">
+                                    <div id="add-map" class="w-100"></div>
+                                    <div class="add-map-loading d-none" id="add-map-loading">
+                                        <div class="loading">
+                                            <div class="spinner-grow text-danger" role="status">
+                                                <span class="sr-only">در حال یافتن آدرس...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <form action="{{ route('map.store', auth()->user()->id) }}" method="post" class="row" id="add-maps">
                             @csrf
                             <input type="hidden" name="lat" id="add-lat">
@@ -321,23 +346,6 @@
                             @enderror
                             </div>
                         </form>
-                        <div class="row mb-3 mt-3">
-                            <div class="col-12">
-                                انتخاب روی نقشه
-                            </div>
-                            <div class="col-12">
-                                <div class="position-relative">
-                                    <div id="add-map" class="w-100"></div>
-                                    <div class="add-map-loading d-none">
-                                        <div class="loading">
-                                            <div class="spinner-grow text-danger" role="status">
-                                                <span class="sr-only">در حال یافتن آدرس...</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="cancel-btn" data-dismiss="modal">لغو</button>
@@ -357,6 +365,8 @@
 
 @push('scripts')
     <script src="https://static.neshan.org/sdk/leaflet/1.4.0/leaflet.js" type="text/javascript"></script>
+    <script src="https://cdn.rawgit.com/hayeswise/Leaflet.PointInPolygon/v1.0.0/wise-leaflet-pip.js"></script>
+
     <script src="{{ asset('assets/js/checkout-maps.js') }}"></script>
     <script>
         icon = L.icon({
@@ -384,7 +394,7 @@
         @if(auth()->user()->maps->count() < 5)
             async function add_map_modal()
             {
-                add_load_map(35.699758, 51.3359019);
+                add_load_map(35.806102, 51.4592034);
             }
         @endif
     </script>

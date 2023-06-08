@@ -120,7 +120,7 @@
                 </div>
                 <div class="card-body py-2">
                     <ul class="list-group list-group-flush">
-                        @forelse(\App\Models\Order::query()->latest()->take(4)->get() as $order)
+                        @forelse(\App\Models\Order::query()->where('status', 'success')->latest()->take(4)->get() as $order)
                             <li class="list-group-item d-flex align-items-center p-l-r-0">
                                 <div>
                                     <h6 class="m-b-0 primary-font">سفارش شماره {{ $order->id }}</h6>

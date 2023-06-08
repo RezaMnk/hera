@@ -3,7 +3,7 @@
 @section('title', 'منو')
 
 @section('breadcrumb')
-    <x-breadcrumb title="منو" desc="منو رستوران قریشی" />
+    <x-breadcrumb title="منو" desc="منو تهیه غذای قریشی" />
 @endsection
 
 @section('content')
@@ -52,15 +52,21 @@
                                         </span>
                                     @endunless
                                     <p class="product-price">
-                                        {{ number_format($product->price) }} تومان
+                                        @if($product->price > 0)
+                                            {{ number_format($product->price) }} تومان
+                                        @else
+                                            ناموجود
+                                        @endif
                                     </p>
                                     <x-add-to-cart :product="$product" />
                                 </div>
                             </div>
                         @empty
-                            <div class="card sticky-cart w-75">
-                                <div class="card-body">
-                                    <h5>محصولی مطابق با جست و جوی شما یافت نشد!</h5>
+                            <div class="col-12">
+                                <div class="card sticky-cart">
+                                    <div class="card-body">
+                                        <h5>محصولی مطابق با جست و جوی شما یافت نشد!</h5>
+                                    </div>
                                 </div>
                             </div>
                         @endforelse

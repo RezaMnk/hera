@@ -11,6 +11,18 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        // Middleware only applied to these methods
+        $this->middleware('auth.owner', [
+            'only' => [
+                'create',
+                'store',
+                'destroy',
+            ]
+        ]);
+    }
+
     /**
      * Display a listing of the products.
      *

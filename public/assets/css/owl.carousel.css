@@ -215,6 +215,7 @@
   position: relative;
   z-index: 1;
 }
+/*
 .carousel-products.owl-carousel.owl-loaded, .carousel-products.owl-carousel .owl-stage-outer {
     overflow: initial;
 }
@@ -224,4 +225,12 @@
 }
 .carousel-products .owl-item.active {
     opacity: 1;
+}
+*/
+
+.carousel-products.owl-carousel .owl-stage-outer {
+    height: calc(100% + 30px);
+    margin: -15px;
+    padding: 15px;
+    width: calc(100% + 30px);
 }

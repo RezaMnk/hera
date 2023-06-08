@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
+    public function __construct()
+    {
+        // Middleware only applied to these methods
+        $this->middleware('auth.owner');
+    }
+
     /**
      * Display a listing of the orders.
      *
@@ -33,6 +39,8 @@ class SettingController extends Controller
             'values.*' => ['required', 'string', 'max:255'],
 
             'values.shipping_price' => ['required', 'numeric'],
+            'values.start_time' => ['required', 'date_format:H:i'],
+            'values.end_time' => ['required', 'date_format:H:i'],
             'values.send_order_submit_sms' => ['required', 'in:true,false'],
         ],
         [

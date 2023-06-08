@@ -17,8 +17,20 @@ class OrderController extends Controller
     {
         $orders = Order::query();
 
-        $orders = $this->search_filter($orders)->latest()->paginate(20);
+        $orders = $this->search_filter($orders)->whereStatus('success')->latest()->paginate(20);
         return view('admin.orders.index', compact('orders'));
+    }
+    /**
+     * Display a listing of the failed orders.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function failed()
+    {
+        $orders = Order::query();
+
+        $orders = $this->search_filter($orders)->whereStatus('failed')->latest()->paginate(20);
+        return view('admin.orders.failed', compact('orders'));
     }
 
 
@@ -31,10 +43,10 @@ class OrderController extends Controller
     public function search_filter($orders)
     {
         if ($keyword = request('search')) {
-            $orders->whereHas('user', function($query) use ($keyword) {
+            $orders->Where('id', 'LIKE', "%$keyword%")
+                ->orWhereHas('user', function($query) use ($keyword) {
                 $query->where('name', 'LIKE', "%$keyword%");
-            })
-                ->orWhere('id', 'LIKE', "%$keyword%");
+            });
         }
 
         return $orders;

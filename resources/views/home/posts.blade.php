@@ -11,7 +11,7 @@
     <div class="latest-posts mt-150 mb-150">
         <div class="container">
             <div class="row">
-                @foreach($posts as $post)
+                @forelse($posts as $post)
                     <div class="col-lg-4 col-md-6">
                         <div class="single-latest-posts">
                             <a href="{{ route('home.post', $post->slug) }}">
@@ -39,7 +39,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12">
+                        هیچ مقاله ای یافت نشد!
+                    </div>
+                @endforelse
             </div>
 
             <div class="row">

@@ -23,7 +23,7 @@
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="phone">شماره تلفن همراه</label>
-                                <input type="text" placeholder="شماره تلفن" name="phone" id="phone" pattern="09[0-9]{9}" value="{{ old('phone') ?? session('user.phone') ?? '' }}" required @error('phone') class="is-invalid" @enderror autocomplete="phone" autofocus>
+                                <input type="text" placeholder="شماره تلفن" name="phone" id="phone" value="{{ old('phone') ?? session('user.phone') ?? '' }}" required @error('phone') class="is-invalid" @enderror autocomplete="phone" autofocus>
 
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
